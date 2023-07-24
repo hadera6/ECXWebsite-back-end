@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "qeXd1oeZHqSuT5GDfeor6ji6NTrpxVfmrjE9ekjcfAc=",
+  "Source": "ECX.Website.API",
+  "BasePath": "_content/ECX.Website.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,12 @@
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\bin\Debug\net6.0\ECX.Website.Domain.deps.json
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\bin\Debug\net6.0\ECX.Website.Domain.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\bin\Debug\net6.0\ECX.Website.Domain.pdb
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.csproj.AssemblyReference.cache
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.AssemblyInfoInputs.cache
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.AssemblyInfo.cs
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.csproj.CoreCompileInputs.cache
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\refint\ECX.Website.Domain.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.pdb
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Domain\obj\Debug\net6.0\ref\ECX.Website.Domain.dll

@@ -1,0 +1,17 @@
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\bin\Debug\net6.0\ECX.Website.Infrastructure.deps.json
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\bin\Debug\net6.0\ECX.Website.Infrastructure.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\bin\Debug\net6.0\ECX.Website.Infrastructure.pdb
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ECX.Website.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ECX.Website.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ECX.Website.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ECX.Website.Infrastructure.AssemblyInfo.cs
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ECX.Website.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ECX.Website.Infrastructure.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\refint\ECX.Website.Infrastructure.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ECX.Website.Infrastructure.pdb
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ref\ECX.Website.Infrastructure.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\bin\Debug\net6.0\ECX.Website.Application.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\bin\Debug\net6.0\ECX.Website.Domain.dll
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\bin\Debug\net6.0\ECX.Website.Application.pdb
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\bin\Debug\net6.0\ECX.Website.Domain.pdb
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Infrastructure\obj\Debug\net6.0\ECX.Website.Infrastructure.csproj.CopyComplete
