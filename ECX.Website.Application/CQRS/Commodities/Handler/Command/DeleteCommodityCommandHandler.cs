@@ -29,6 +29,11 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 throw new NotFoundException(nameof(Commodity), request.Id);
             await _commodityRepository.Delete(commodity);
 
+            string path = Path.Combine(
+                Directory.GetCurrentDirectory(), @"wwwroot\image", commodity.Img);
+
+            File.Delete(path);
+
             return Unit.Value;
         }
     }

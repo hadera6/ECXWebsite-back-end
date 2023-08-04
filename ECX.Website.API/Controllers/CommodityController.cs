@@ -1,6 +1,7 @@
 ﻿using ECX.Website.Application.CQRS.Commodities.Request.Command;
 using ECX.Website.Application.CQRS.Commodities.Request.Queries;
 using ECX.Website.Application.DTOs.Commodity;
+using ECX.Website.Application.Response;
 using ECX.Website.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -38,28 +39,28 @@ namespace ECX.Website.API.Controllers
 
         // POST api/<CommodityController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CommodityDto commodity)
+        public async Task<BaseCommonResponse> Post([FromForm] CommodityFormDto commodity)
         {
-            var command = new CreateCommodityCommand { CommodityDto = commodity };
-            await _mediator.Send(command);
-            return Ok(command);
+            var command = new CreateCommodityCommand { CommodityFormDto = commodity };
+            BaseCommonResponse response = await _mediator.Send(command);
+            return response;
 
         }
 
         // PUT api/<CommodityController>/5
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] CommodityDto commodity)
+        public async Task<BaseCommonResponse> Put([FromForm] CommodityFormDto commodity)
         {
-            var command = new UpdateCommodityCommand { CommodityDto = commodity };
-            await _mediator.Send(command);
-            return NoContent(); 
+            var command = new UpdateCommodityCommand { CommodityFormDto = commodity};
+            BaseCommonResponse response = await _mediator.Send(command);
+            return response;
         }
 
         // DELETE api/<CommodityController>/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var command = new DeleteCommodityCommand { Id= id };
+            var command = new DeleteCommodityCommand { Id = id };
             await _mediator.Send(command);
             return NoContent();
         }

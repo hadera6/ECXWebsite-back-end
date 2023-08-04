@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECX.Website.Application.Response
 {
-    public class BaseCommandResponse
+    public class BaseCommonResponse
     {
         public int Id { get; set; }
         public bool Success { get; set; } = true;

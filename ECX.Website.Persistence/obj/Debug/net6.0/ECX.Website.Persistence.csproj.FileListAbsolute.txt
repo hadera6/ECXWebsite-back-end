@@ -1,4 +1,5 @@
 C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\bin\Debug\net6.0\ECX.Website.Persistence.deps.json
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\bin\Debug\net6.0\ECX.Website.Persistence.runtimeconfig.json
 C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\bin\Debug\net6.0\ECX.Website.Persistence.dll
 C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\bin\Debug\net6.0\ECX.Website.Persistence.pdb
 C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\bin\Debug\net6.0\ECX.Website.Application.dll
@@ -14,6 +15,5 @@ C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\obj\Debug\
 C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\obj\Debug\net6.0\ECX.Website.Persistence.dll
 C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\obj\Debug\net6.0\refint\ECX.Website.Persistence.dll
 C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\obj\Debug\net6.0\ECX.Website.Persistence.pdb
-C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\obj\Debug\net6.0\ref\ECX.Website.Persistence.dll
-C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\bin\Debug\net6.0\ECX.Website.Persistence.runtimeconfig.json
 C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\obj\Debug\net6.0\ECX.Website.Persistence.genruntimeconfig.cache
+C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Persistence\obj\Debug\net6.0\ref\ECX.Website.Persistence.dll

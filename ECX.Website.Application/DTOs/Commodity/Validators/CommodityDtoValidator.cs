@@ -17,9 +17,6 @@ namespace ECX.Website.Application.DTOs.Commodity.Validators
             RuleFor(p => p.Description)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
-            RuleFor(p => p.Img)
-               .NotEmpty().WithMessage("{PropertyName} is requiered.")
-               .NotNull();
         }
     }
 }

@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace ECX.Website.Application.CQRS.Commodities.Request.Command
 {
-    public class CreateCommodityCommand : IRequest<BaseCommandResponse>
+    public class CreateCommodityCommand : IRequest<BaseCommonResponse>
     {
-        public CommodityDto CommodityDto { get; set; }
+        public CommodityFormDto CommodityFormDto { get; set; }
     }
 }

@@ -14,6 +14,11 @@ namespace ECX.Website.Application.Profiles
         public MappingProfile()
         {
             CreateMap<Commodity, CommodityDto>().ReverseMap();
+
+            CreateMap<Commodity, CommodityFormDto>()
+                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Img, act => act.MapFrom(src => src.Img)).ReverseMap();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ECX.Website.Application.DTOs.Commodity;
+using ECX.Website.Application.Response;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace ECX.Website.Application.CQRS.Commodities.Request.Command
 {
-    public class UpdateCommodityCommand :IRequest<Unit>
+    public class UpdateCommodityCommand :IRequest<BaseCommonResponse>
     {
-        public CommodityDto CommodityDto { get; set; }
+        public CommodityFormDto CommodityFormDto { get; set; }
+
     }
 }
