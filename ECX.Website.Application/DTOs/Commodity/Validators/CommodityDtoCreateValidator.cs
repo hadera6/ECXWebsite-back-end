@@ -12,6 +12,9 @@ namespace ECX.Website.Application.DTOs.Commodity.Validators
         public CommodityCreateDtoValidator()
         {
 
+            RuleFor(p => p.LangId)
+                .NotEmpty().WithMessage("{PropertyName} is requiered.")
+                .NotNull();
             RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();

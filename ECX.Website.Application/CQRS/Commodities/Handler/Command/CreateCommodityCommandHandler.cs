@@ -67,9 +67,10 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                         {
                             request.CommodityFormDto.ImgFile.CopyTo(stream);
                         }
-                        request.CommodityFormDto.Img = fileName;
+                        var CommodityDto = _mapper.Map<CommodityDto>(request.CommodityFormDto);
+                        CommodityDto.ImgName = fileName;
 
-                        var commodity = _mapper.Map<Commodity>(request.CommodityFormDto);
+                        var commodity = _mapper.Map<Commodity>(CommodityDto);
                         
                         var data = await _commodityRepository.Add(commodity);
                         response.Success = true;

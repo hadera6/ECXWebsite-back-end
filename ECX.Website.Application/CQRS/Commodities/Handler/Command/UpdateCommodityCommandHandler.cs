@@ -38,6 +38,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
             response = new BaseCommonResponse();
             var validator = new CommodityUpdateDtoValidator();
             var validationResult = await validator.ValidateAsync(request.CommodityFormDto);
+            var CommodityDto = _mapper.Map<CommodityDto>(request.CommodityFormDto);
 
             if (validationResult.IsValid == false)
             {
@@ -47,6 +48,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
             }
             else 
             {
+
                 if (request.CommodityFormDto.ImgFile != null)
                 {
                     try
@@ -63,7 +65,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                         else
                         {
                             var oldImage = (await _commodityRepository.GetById(
-                                request.CommodityFormDto.Id)).Img;
+                                request.CommodityFormDto.Id)).ImgName;
                             
 
                             string oldPath = Path.Combine(
@@ -79,7 +81,8 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                             {
                                 request.CommodityFormDto.ImgFile.CopyTo(stream);
                             }
-                            request.CommodityFormDto.Img = fileName;
+                           
+                            CommodityDto.ImgName = fileName;
                         }
                     }
                     catch (Exception ex)
@@ -89,14 +92,14 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 }
                 else
                 {
-                    request.CommodityFormDto.Img = (await _commodityRepository.GetById(
-                                request.CommodityFormDto.Id)).Img;
+                    CommodityDto.ImgName = (await _commodityRepository.GetById(
+                                request.CommodityFormDto.Id)).ImgName;
                 } 
 
 
                 var commodity = await _commodityRepository.GetById(request.CommodityFormDto.Id);
                 
-                _mapper.Map(request.CommodityFormDto, commodity);
+                _mapper.Map(CommodityDto, commodity);
                 await _commodityRepository.Update(commodity);
                 response.Success = true;
                 response.Message = "Updated Successfull";
