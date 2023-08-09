@@ -1,25 +1,18 @@
 ﻿using AutoMapper;
-using ECX.Website.Application.CQRS.Commodities.Request.Command;
-using ECX.Website.Application.Exceptions;
 using ECX.Website.Application.Contracts.Persistence;
-using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ECX.Website.Domain;
-using ECX.Website.Application.DTOs.Commodity.Validators;
-using ECX.Website.Application.Response;
-using ECX.Website.Application.DTOs.Common.Validators;
+using ECX.Website.Application.CQRS.Commodities.Request.Command;
 using ECX.Website.Application.DTOs.Commodity;
+using ECX.Website.Application.DTOs.Commodity.Validators;
+using ECX.Website.Application.DTOs.Common.Validators;
+using ECX.Website.Application.Exceptions;
+using ECX.Website.Application.Response;
+using ECX.Website.Domain;
+using MediatR;
 
 namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
 {
     public class UpdateCommodityCommandHandler : IRequestHandler<UpdateCommodityCommand, BaseCommonResponse>
     {
-        private BaseCommonResponse response;
         private ICommodityRepository _commodityRepository;
         private IMapper _mapper;
         public UpdateCommodityCommandHandler(ICommodityRepository commodityRepository, IMapper mapper)
@@ -30,15 +23,11 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
 
         public async Task<BaseCommonResponse> Handle(UpdateCommodityCommand request, CancellationToken cancellationToken)
         {
-            //var validator = new CommodityUpdateDtoValidator();
-            //var validationResult = await validator.ValidateAsync(request.CommodityFormDto);
-            //if (validationResult.IsValid == false)
-            //  throw new ValidationException(validationResult);
-            
-            response = new BaseCommonResponse();
+            var response = new BaseCommonResponse();
             var validator = new CommodityUpdateDtoValidator();
             var validationResult = await validator.ValidateAsync(request.CommodityFormDto);
             var CommodityDto = _mapper.Map<CommodityDto>(request.CommodityFormDto);
+            var flag = await _commodityRepository.Exists(request.CommodityFormDto.Id);
 
             if (validationResult.IsValid == false)
             {
@@ -46,9 +35,15 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 response.Message = "Update Failed";
                 response.Errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
             }
-            else 
+            else if (flag == false)
             {
 
+                response.Success = false;
+                response.Message = new NotFoundException(
+                            nameof(Commodity), request.CommodityFormDto.Id).Message.ToString();
+            }
+            else 
+            {
                 if (request.CommodityFormDto.ImgFile != null)
                 {
                     try
@@ -87,7 +82,9 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                     }
                     catch (Exception ex)
                     {
-                        
+                        response.Success = false;
+                        response.Message = "Update Failed";
+                        response.Errors = new List<string> { ex.Message };
                     }
                 }
                 else
@@ -96,11 +93,13 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                                 request.CommodityFormDto.Id)).ImgName;
                 } 
 
-
                 var commodity = await _commodityRepository.GetById(request.CommodityFormDto.Id);
                 
                 _mapper.Map(CommodityDto, commodity);
-                await _commodityRepository.Update(commodity);
+
+                var data = await _commodityRepository.Update(commodity);
+
+                response.Data = _mapper.Map<CommodityDto>(data);
                 response.Success = true;
                 response.Message = "Updated Successfull";
             }

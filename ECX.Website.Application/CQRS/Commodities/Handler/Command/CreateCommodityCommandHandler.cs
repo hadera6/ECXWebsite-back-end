@@ -22,7 +22,6 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
 {
     public class CreateCommodityCommandHandler : IRequestHandler<CreateCommodityCommand, BaseCommonResponse>
     {
-        BaseCommonResponse response;
         private ICommodityRepository _commodityRepository;
         private IMapper _mapper;
         
@@ -33,7 +32,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
         }
         public async Task<BaseCommonResponse> Handle(CreateCommodityCommand request, CancellationToken cancellationToken)
         {
-            response = new BaseCommonResponse();
+            var response = new BaseCommonResponse();
             var validator = new CommodityCreateDtoValidator();
             var validationResult = await validator.ValidateAsync(request.CommodityFormDto);
 
@@ -70,16 +69,20 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                         var CommodityDto = _mapper.Map<CommodityDto>(request.CommodityFormDto);
                         CommodityDto.ImgName = fileName;
 
-                        var commodity = _mapper.Map<Commodity>(CommodityDto);
+                       var commodity = _mapper.Map<Commodity>(CommodityDto);
                         
-                        var data = await _commodityRepository.Add(commodity);
+                       var data = await _commodityRepository.Add(commodity);
+
+                        response.Data = _mapper.Map<CommodityDto>(data);
                         response.Success = true;
-                        response.Message = "Creation Successfull";
+                        response.Message = "Created Successfully";
                     }    
                 }
                 catch (Exception ex)
                 {
-
+                    response.Success = false;
+                    response.Message = "Creation Failed";
+                    response.Errors = new List<string> { ex.Message };
                 }
             }
             return response;

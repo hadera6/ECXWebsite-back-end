@@ -10,11 +10,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ECX.Website.Domain;
+using ECX.Website.Application.Response;
 
 namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
 {
-    public class DeleteCommodityCommandHandler : IRequestHandler<DeleteCommodityCommand>
+    public class DeleteCommodityCommandHandler : IRequestHandler<DeleteCommodityCommand, BaseCommonResponse>
     {
+        
         private ICommodityRepository _commodityRepository;
         private IMapper _mapper;
         public DeleteCommodityCommandHandler(ICommodityRepository commodityRepository, IMapper mapper)
@@ -22,19 +24,32 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
             _commodityRepository = commodityRepository;
             _mapper = mapper;
         }
-        public async Task<Unit> Handle(DeleteCommodityCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommonResponse> Handle(DeleteCommodityCommand request, CancellationToken cancellationToken)
         {
             var commodity = await _commodityRepository.GetById(request.Id);
-            if(commodity == null) 
-                throw new NotFoundException(nameof(Commodity), request.Id);
-            await _commodityRepository.Delete(commodity);
+            var response = new BaseCommonResponse();
 
-            string path = Path.Combine(
-                Directory.GetCurrentDirectory(), @"wwwroot\image", commodity.Img);
+            if (commodity == null)
+            {
+                response.Success = false;
+                response.Message = new NotFoundException(
+                            nameof(Commodity), request.Id).Message.ToString();
+            }
+            else
+            {
+                await _commodityRepository.Delete(commodity);
 
-            File.Delete(path);
+                string path = Path.Combine(
+                    Directory.GetCurrentDirectory(), @"wwwroot\image", commodity.ImgName);
 
-            return Unit.Value;
+                File.Delete(path);
+
+                response.Success = true;
+                response.Message = "Successfully Deleted";
+
+            }
+                
+            return response;
         }
     }
 }

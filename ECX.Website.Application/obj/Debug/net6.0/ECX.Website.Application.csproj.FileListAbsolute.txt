@@ -1,5 +1,0 @@
-C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Application\obj\Debug\net6.0\ECX.Website.Application.csproj.AssemblyReference.cache
-C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Application\obj\Debug\net6.0\ECX.Website.Application.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Application\obj\Debug\net6.0\ECX.Website.Application.AssemblyInfoInputs.cache
-C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Application\obj\Debug\net6.0\ECX.Website.Application.AssemblyInfo.cs
-C:\Users\hadera.teame\source\repos\ECXWebsite\ECX.Website.Application\obj\Debug\net6.0\ECX.Website.Application.csproj.CoreCompileInputs.cache

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using ECX.Website.Application.Response;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace ECX.Website.Application.CQRS.Commodities.Request.Command
 {
-    public class DeleteCommodityCommand : IRequest
+    public class DeleteCommodityCommand : IRequest<BaseCommonResponse>
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

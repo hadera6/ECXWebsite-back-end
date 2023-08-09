@@ -5,6 +5,7 @@ using ECX.Website.Application.Response;
 using ECX.Website.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,18 +24,20 @@ namespace ECX.Website.API.Controllers
 
         // GET: api/<CommodityController>
         [HttpGet]
-        public async Task<ActionResult<List<CommodityDto>>> Get()
+        public async Task<BaseCommonResponse> Get()
         {
-            var commodities = await _mediator.Send(new GetCommodityListRequest());
-            return Ok(commodities);
+            var query = new GetCommodityListRequest();
+            BaseCommonResponse response = await _mediator.Send(query);
+            return response;
         }
 
         // GET api/<CommodityController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CommodityDto>> Get(int id)
+        public async Task<BaseCommonResponse> Get(string id)
         {
-            var commodity = await _mediator.Send(new GetCommodityDetailRequest { Id= id});
-            return Ok(commodity);
+            var query = new GetCommodityDetailRequest { Id = id };
+            BaseCommonResponse response = await _mediator.Send(query);
+            return response;
         }
 
         // POST api/<CommodityController>
@@ -58,11 +61,11 @@ namespace ECX.Website.API.Controllers
 
         // DELETE api/<CommodityController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<BaseCommonResponse> Delete(string id)
         {
             var command = new DeleteCommodityCommand { Id = id };
-            await _mediator.Send(command);
-            return NoContent();
+            BaseCommonResponse response = await _mediator.Send(command);
+            return response;
         }
     }
 }

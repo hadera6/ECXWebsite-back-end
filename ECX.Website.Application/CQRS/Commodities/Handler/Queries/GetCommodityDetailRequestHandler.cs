@@ -19,19 +19,37 @@ using ECX.Website.Application.CQRS.Commodities.Request.Queries;
 
 namespace ECX.Website.Application.CQRS.Commodities.Handler.Queries
 {
-    public class GetCommodityDetailRequestHandler : IRequestHandler<GetCommodityDetailRequest, CommodityDto>
+    public class GetCommodityDetailRequestHandler : IRequestHandler<GetCommodityDetailRequest, BaseCommonResponse>
     {
         private ICommodityRepository _commodityRepository;
         private IMapper _mapper;
+        
         public GetCommodityDetailRequestHandler(ICommodityRepository commodityRepository, IMapper mapper)
         {
             _commodityRepository = commodityRepository;
             _mapper = mapper;
         }
-        public async Task<CommodityDto> Handle(GetCommodityDetailRequest request, CancellationToken cancellationToken)
+        public async Task<BaseCommonResponse> Handle(GetCommodityDetailRequest request, CancellationToken cancellationToken)
         {
+            var response = new BaseCommonResponse();
             var commodity = await _commodityRepository.GetById(request.Id);
-            return _mapper.Map<CommodityDto>(commodity);
+
+
+            
+            if (commodity != null)
+            {
+                response.Success = true;
+                response.Data = _mapper.Map<CommodityDto>(commodity);
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = new NotFoundException(
+                          nameof(Commodity), request.Id).Message.ToString();
+            }
+            
+
+            return response;
         }
     }
 }

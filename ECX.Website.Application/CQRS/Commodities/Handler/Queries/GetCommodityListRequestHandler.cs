@@ -19,7 +19,7 @@ using ECX.Website.Application.CQRS.Commodities.Request.Queries;
 
 namespace ECX.Website.Application.CQRS.Commodities.Handler.Queries
 {
-    public class GetCommodityListRequestHandler : IRequestHandler<GetCommodityListRequest, List<CommodityDto>>
+    public class GetCommodityListRequestHandler : IRequestHandler<GetCommodityListRequest, BaseCommonResponse>
     {
         private ICommodityRepository _commodityRepository;
         private IMapper _mapper;
@@ -28,10 +28,15 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Queries
             _commodityRepository = commodityRepository;
             _mapper = mapper;
         }
-        public async Task<List<CommodityDto>> Handle(GetCommodityListRequest request, CancellationToken cancellationToken)
+        public async Task<BaseCommonResponse> Handle(GetCommodityListRequest request, CancellationToken cancellationToken)
         {
+            var response = new BaseCommonResponse();
             var commodity = await _commodityRepository.GetAll();
-            return _mapper.Map<List<CommodityDto>>(commodity);
+
+            response.Success = true;
+            response.Data = _mapper.Map<List<CommodityDto>>(commodity);
+
+            return response;
         }
     }
 }

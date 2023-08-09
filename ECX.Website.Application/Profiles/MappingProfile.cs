@@ -13,12 +13,15 @@ namespace ECX.Website.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<Commodity, CommodityDto>().ReverseMap();
+            CreateMap<CommodityDto,Commodity>().ReverseMap();
 
             CreateMap<CommodityFormDto, CommodityDto>()
                 .ForMember(dest => dest.LangId, act => act.MapFrom(src => src.LangId))
                 .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description));
+                .ForMember(dest => dest.CreatedBy, act => act.MapFrom(src => src.CreatedBy))
+                .ForMember(dest => dest.UpdatedBy, act => act.MapFrom(src => src.UpdatedBy))
+                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description)
+                ).ReverseMap();
 
         }
     }
