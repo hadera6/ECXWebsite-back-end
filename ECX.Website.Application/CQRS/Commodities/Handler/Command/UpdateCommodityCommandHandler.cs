@@ -34,6 +34,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 response.Success = false;
                 response.Message = "Update Failed";
                 response.Errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                response.Status = "400";
             }
             else if (flag == false)
             {
@@ -41,6 +42,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 response.Success = false;
                 response.Message = new NotFoundException(
                             nameof(Commodity), request.CommodityFormDto.Id).Message.ToString();
+                response.Status = "404";
             }
             else 
             {
@@ -56,6 +58,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                             response.Success = false;
                             response.Message = "Update Failed";
                             response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                            response.Status = "400";
                         }
                         else
                         {
@@ -85,6 +88,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                         response.Success = false;
                         response.Message = "Update Failed";
                         response.Errors = new List<string> { ex.Message };
+                        response.Status = "400";
                     }
                 }
                 else
@@ -102,6 +106,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 response.Data = _mapper.Map<CommodityDto>(data);
                 response.Success = true;
                 response.Message = "Updated Successfull";
+                response.Status = "200";
             }
             return response;
         }

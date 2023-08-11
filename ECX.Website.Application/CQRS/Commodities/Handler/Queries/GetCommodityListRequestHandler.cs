@@ -35,6 +35,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Queries
 
             response.Success = true;
             response.Data = _mapper.Map<List<CommodityDto>>(commodity);
+            response.Status = "200";
 
             return response;
         }

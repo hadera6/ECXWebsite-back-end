@@ -34,6 +34,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 response.Success = false;
                 response.Message = new NotFoundException(
                             nameof(Commodity), request.Id).Message.ToString();
+                response.Status = "404";
             }
             else
             {
@@ -46,6 +47,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
 
                 response.Success = true;
                 response.Message = "Successfully Deleted";
+                response.Status = "200";
 
             }
                 

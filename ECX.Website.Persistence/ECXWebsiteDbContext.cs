@@ -24,7 +24,7 @@ namespace ECX.Website.Persistence
             foreach (var entity in ChangeTracker.Entries<BaseDomainEntity>())
             {
                 entity.Entity.UpdatedDate = DateTime.Now;
-                if(entity.State ==EntityState.Added)
+                if(entity.State == EntityState.Added)
                 {
                     entity.Entity.CreatedDate = DateTime.Now;
                 }

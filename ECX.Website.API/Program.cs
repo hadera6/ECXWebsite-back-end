@@ -13,12 +13,15 @@ builder.Services.ConfigureApplicationServices();
 builder.Services.ConfigureInfrastructureServices(builder.Configuration);
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
 builder.Services.AddControllers();
+
+builder.Services.AddControllersWithViews
+   (options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); 
 
-builder.Services.AddControllersWithViews
-   (options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
 
 
 var app = builder.Build();

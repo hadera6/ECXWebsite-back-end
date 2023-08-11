@@ -41,6 +41,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 response.Success = false;
                 response.Message = "Creation Faild";
                 response.Errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                response.Status = "400";
             }
             else
             {
@@ -54,6 +55,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                         response.Success = false;
                         response.Message = "Creation Faild";
                         response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                        response.Status = "400";
                     }
                     else
                     {
@@ -69,13 +71,28 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                         var CommodityDto = _mapper.Map<CommodityDto>(request.CommodityFormDto);
                         CommodityDto.ImgName = fileName;
 
-                       var commodity = _mapper.Map<Commodity>(CommodityDto);
+                        string commodityId ;
+                        bool flag = true;
+
+                        while (true)
+                        {
+                            commodityId = (Guid.NewGuid()).ToString();
+                            flag = await _commodityRepository.Exists(commodityId);
+                            if (flag == false)
+                            {
+                                CommodityDto.Id = commodityId;
+                                break;
+                            }
+                        }
+
+                        var commodity = _mapper.Map<Commodity>(CommodityDto);
                         
-                       var data = await _commodityRepository.Add(commodity);
+                        var data = await _commodityRepository.Add(commodity);
 
                         response.Data = _mapper.Map<CommodityDto>(data);
                         response.Success = true;
                         response.Message = "Created Successfully";
+                        response.Status = "200";
                     }    
                 }
                 catch (Exception ex)
@@ -83,6 +100,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                     response.Success = false;
                     response.Message = "Creation Failed";
                     response.Errors = new List<string> { ex.Message };
+                    response.Status = "400";
                 }
             }
             return response;

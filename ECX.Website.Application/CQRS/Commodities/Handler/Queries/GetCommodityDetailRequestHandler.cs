@@ -33,22 +33,19 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Queries
         {
             var response = new BaseCommonResponse();
             var commodity = await _commodityRepository.GetById(request.Id);
-
-
-            
             if (commodity != null)
             {
                 response.Success = true;
                 response.Data = _mapper.Map<CommodityDto>(commodity);
+                response.Status = "200";
             }
             else
             {
                 response.Success = false;
                 response.Message = new NotFoundException(
                           nameof(Commodity), request.Id).Message.ToString();
+                response.Status = "404";
             }
-            
-
             return response;
         }
     }

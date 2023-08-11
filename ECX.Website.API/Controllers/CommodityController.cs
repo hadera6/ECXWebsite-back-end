@@ -24,48 +24,76 @@ namespace ECX.Website.API.Controllers
 
         // GET: api/<CommodityController>
         [HttpGet]
-        public async Task<BaseCommonResponse> Get()
+        public async Task<ActionResult<BaseCommonResponse>> Get()
         {
             var query = new GetCommodityListRequest();
             BaseCommonResponse response = await _mediator.Send(query);
-            return response;
+            switch(response.Status){
+                case "200" : return Ok(response);
+                case "400" : return BadRequest(response);
+                case "404" : return NotFound(response);
+                default : return response;  
+            }
         }
 
         // GET api/<CommodityController>/5
         [HttpGet("{id}")]
-        public async Task<BaseCommonResponse> Get(string id)
+        public async Task<ActionResult<BaseCommonResponse>> Get(string id)
         {
             var query = new GetCommodityDetailRequest { Id = id };
             BaseCommonResponse response = await _mediator.Send(query);
-            return response;
+            switch(response.Status){
+                case "200" : return Ok(response);
+                case "400" : return BadRequest(response);
+                case "404" : return NotFound(response);
+                default : return response;  
+            }
         }
 
         // POST api/<CommodityController>
         [HttpPost]
-        public async Task<BaseCommonResponse> Post([FromForm] CommodityFormDto commodity)
+        public async Task<ActionResult<BaseCommonResponse>> Post([FromForm] CommodityFormDto commodity)
         {
             var command = new CreateCommodityCommand { CommodityFormDto = commodity };
             BaseCommonResponse response = await _mediator.Send(command);
-            return response;
+            switch(response.Status){
+                case "200" : return Ok(response);
+                case "400" : return BadRequest(response);
+                case "404" : return NotFound(response);
+                default : return response;
+                
+            }
 
         }
 
         // PUT api/<CommodityController>/5
         [HttpPut]
-        public async Task<BaseCommonResponse> Put([FromForm] CommodityFormDto commodity)
+        public async Task<ActionResult<BaseCommonResponse>> Put([FromForm] CommodityFormDto commodity)
         {
             var command = new UpdateCommodityCommand { CommodityFormDto = commodity};
             BaseCommonResponse response = await _mediator.Send(command);
-            return response;
+            switch(response.Status){
+                case "200" : return Ok(response);
+                case "400" : return BadRequest(response);
+                case "404" : return NotFound(response);
+                default : return response;
+                
+            }
         }
 
         // DELETE api/<CommodityController>/5
         [HttpDelete("{id}")]
-        public async Task<BaseCommonResponse> Delete(string id)
+        public async Task<ActionResult<BaseCommonResponse>> Delete(string id)
         {
             var command = new DeleteCommodityCommand { Id = id };
             BaseCommonResponse response = await _mediator.Send(command);
-            return response;
+            switch(response.Status){
+                case "200" : return Ok(response);
+                case "400" : return BadRequest(response);
+                case "404" : return NotFound(response);
+                default : return response;
+                
+            }
         }
     }
 }
