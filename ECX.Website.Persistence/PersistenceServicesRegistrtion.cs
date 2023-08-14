@@ -20,6 +20,7 @@ namespace ECX.Website.Persistence
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<ICommodityRepository, CommodityRepository>();
             services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<IPageRepository, PageRepository>();
 
             return services;
         }

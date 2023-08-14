@@ -21,14 +21,3 @@ C:\Users\Hadera\Desktop\dotnet\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\
 C:\Users\Hadera\Desktop\dotnet\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\refint\ECX.Website.Domain.dll
 C:\Users\Hadera\Desktop\dotnet\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.pdb
 C:\Users\Hadera\Desktop\dotnet\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ref\ECX.Website.Domain.dll
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\bin\Debug\net6.0\ECX.Website.Domain.deps.json
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\bin\Debug\net6.0\ECX.Website.Domain.dll
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\bin\Debug\net6.0\ECX.Website.Domain.pdb
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.AssemblyInfoInputs.cache
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.AssemblyInfo.cs
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.csproj.CoreCompileInputs.cache
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.dll
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\refint\ECX.Website.Domain.dll
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ECX.Website.Domain.pdb
-C:\Users\Hadera\Desktop\ECXWebsite\ECXWebsite-back-end\ECX.Website.Domain\obj\Debug\net6.0\ref\ECX.Website.Domain.dll
