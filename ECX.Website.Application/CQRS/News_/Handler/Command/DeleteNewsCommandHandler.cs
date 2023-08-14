@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ECX.Website.Application.CQRS.Commodities.Request.Command;
+using ECX.Website.Application.CQRS.News_.Request.Command;
 using ECX.Website.Application.Exceptions;
 using ECX.Website.Application.Contracts.Persistence;
 using MediatR;
@@ -12,36 +12,36 @@ using System.Text;
 using ECX.Website.Domain;
 using ECX.Website.Application.Response;
 
-namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
+namespace ECX.Website.Application.CQRS.News_.Handler.Command
 {
-    public class DeleteCommodityCommandHandler : IRequestHandler<DeleteCommodityCommand, BaseCommonResponse>
+    public class DeleteNewsCommandHandler : IRequestHandler<DeleteNewsCommand, BaseCommonResponse>
     {
         
-        private ICommodityRepository _commodityRepository;
+        private INewsRepository _newsRepository;
         private IMapper _mapper;
-        public DeleteCommodityCommandHandler(ICommodityRepository commodityRepository, IMapper mapper)
+        public DeleteNewsCommandHandler(INewsRepository newsRepository, IMapper mapper)
         {
-            _commodityRepository = commodityRepository;
+            _newsRepository = newsRepository;
             _mapper = mapper;
         }
-        public async Task<BaseCommonResponse> Handle(DeleteCommodityCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommonResponse> Handle(DeleteNewsCommand request, CancellationToken cancellationToken)
         {
-            var commodity = await _commodityRepository.GetById(request.Id);
+            var data = await _newsRepository.GetById(request.Id);
             var response = new BaseCommonResponse();
 
-            if (commodity == null)
+            if (data == null)
             {
                 response.Success = false;
                 response.Message = new NotFoundException(
-                            nameof(Commodity), request.Id).Message.ToString();
+                            nameof(News), request.Id).Message.ToString();
                 response.Status = "404";
             }
             else
             {
-                await _commodityRepository.Delete(commodity);
+                await _newsRepository.Delete(data);
 
                 string path = Path.Combine(
-                    Directory.GetCurrentDirectory(), @"wwwroot\image", commodity.ImgName);
+                    Directory.GetCurrentDirectory(), @"wwwroot\image", data.ImgName);
 
                 File.Delete(path);
 

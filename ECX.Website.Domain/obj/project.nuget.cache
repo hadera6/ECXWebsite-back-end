@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "0r4lYroaI2ZOZSiEn9GkdCPFu4qSlliQkZav9OxMLq6GQJEQG1MJL8+sIrNYS8p9FOEdakSMvM9nOnVGoVzd/Q==",
+  "dgSpecHash": "CuWjfGCu2EgLZs467+jn8JrwJo17Ep034+1ZwR/u3I3ZqoYrR7Oz7BQS5dHtmiC3ZNrXvOh0xo/3Mnw/KhZQnw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hadera.teame\\source\\repos\\ECXWebsite\\ECX.Website.Domain\\ECX.Website.Domain.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.Domain\\ECX.Website.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hadera\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.21\\microsoft.netcore.app.ref.6.0.21.nupkg.sha512",
+    "C:\\Users\\Hadera\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.21\\microsoft.windowsdesktop.app.ref.6.0.21.nupkg.sha512",
+    "C:\\Users\\Hadera\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.21\\microsoft.aspnetcore.app.ref.6.0.21.nupkg.sha512"
+  ],
   "logs": []
 }

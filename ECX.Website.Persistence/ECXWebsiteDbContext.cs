@@ -27,10 +27,13 @@ namespace ECX.Website.Persistence
                 if(entity.State == EntityState.Added)
                 {
                     entity.Entity.CreatedDate = DateTime.Now;
+                    entity.Entity.IsActive = true;
                 }
+                
             }
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
         public DbSet<Commodity> Commodities { get; set; }
+        public DbSet<News> News { get; set; }
     }
 }

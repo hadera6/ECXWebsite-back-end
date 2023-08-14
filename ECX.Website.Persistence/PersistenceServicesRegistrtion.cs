@@ -1,5 +1,4 @@
-﻿
-using ECX.Website.Application.Contracts.Persistence;
+﻿using ECX.Website.Application.Contracts.Persistence;
 using ECX.Website.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +19,7 @@ namespace ECX.Website.Persistence
                 (options => options.UseSqlServer(configuration.GetConnectionString("ECXWebsiteConnectionString")));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<ICommodityRepository, CommodityRepository>();
+            services.AddScoped<INewsRepository, NewsRepository>();
 
             return services;
         }

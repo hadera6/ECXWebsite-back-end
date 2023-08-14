@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECX.Website.Application.CQRS.Commodities.Request.Command
+namespace ECX.Website.Application.CQRS.Commodity_.Request.Queries
 {
-    public class UpdateCommodityCommand :IRequest<BaseCommonResponse>
+    public class GetCommodityListRequest :IRequest<BaseCommonResponse>
     {
-        public CommodityFormDto CommodityFormDto { get; set; }
-
+       
     }
 }

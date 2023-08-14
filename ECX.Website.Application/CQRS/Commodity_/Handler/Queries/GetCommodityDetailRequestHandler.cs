@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ECX.Website.Application.Contracts.Persistence;
-using ECX.Website.Application.CQRS.Commodities.Request.Command;
+using ECX.Website.Application.CQRS.Commodity_.Request.Command;
 using ECX.Website.Application.DTOs.Commodity;
 using ECX.Website.Application.DTOs.Commodity.Validators;
 using ECX.Website.Application.Exceptions;
@@ -15,9 +15,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using ECX.Website.Application.CQRS.Commodities.Request.Queries;
+using ECX.Website.Application.CQRS.Commodity_.Request.Queries;
 
-namespace ECX.Website.Application.CQRS.Commodities.Handler.Queries
+namespace ECX.Website.Application.CQRS.Commodity_.Handler.Queries
 {
     public class GetCommodityDetailRequestHandler : IRequestHandler<GetCommodityDetailRequest, BaseCommonResponse>
     {
@@ -32,11 +32,11 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Queries
         public async Task<BaseCommonResponse> Handle(GetCommodityDetailRequest request, CancellationToken cancellationToken)
         {
             var response = new BaseCommonResponse();
-            var commodity = await _commodityRepository.GetById(request.Id);
-            if (commodity != null)
+            var data = await _commodityRepository.GetById(request.Id);
+            if (data != null)
             {
                 response.Success = true;
-                response.Data = _mapper.Map<CommodityDto>(commodity);
+                response.Data = _mapper.Map<CommodityDto>(data);
                 response.Status = "200";
             }
             else

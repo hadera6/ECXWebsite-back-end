@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECX.Website.Application.CQRS.Commodities.Request.Command
+namespace ECX.Website.Application.CQRS.Commodity_.Request.Command
 {
     public class DeleteCommodityCommand : IRequest<BaseCommonResponse>
     {

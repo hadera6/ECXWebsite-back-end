@@ -1,5 +1,5 @@
-﻿using ECX.Website.Application.CQRS.Commodities.Request.Command;
-using ECX.Website.Application.CQRS.Commodities.Request.Queries;
+﻿using ECX.Website.Application.CQRS.Commodity_.Request.Command;
+using ECX.Website.Application.CQRS.Commodity_.Request.Queries;
 using ECX.Website.Application.DTOs.Commodity;
 using ECX.Website.Application.Response;
 using ECX.Website.Domain;
@@ -52,9 +52,9 @@ namespace ECX.Website.API.Controllers
 
         // POST api/<CommodityController>
         [HttpPost]
-        public async Task<ActionResult<BaseCommonResponse>> Post([FromForm] CommodityFormDto commodity)
+        public async Task<ActionResult<BaseCommonResponse>> Post([FromForm] CommodityFormDto data)
         {
-            var command = new CreateCommodityCommand { CommodityFormDto = commodity };
+            var command = new CreateCommodityCommand { CommodityFormDto = data };
             BaseCommonResponse response = await _mediator.Send(command);
             switch(response.Status){
                 case "200" : return Ok(response);
@@ -68,9 +68,9 @@ namespace ECX.Website.API.Controllers
 
         // PUT api/<CommodityController>/5
         [HttpPut]
-        public async Task<ActionResult<BaseCommonResponse>> Put([FromForm] CommodityFormDto commodity)
+        public async Task<ActionResult<BaseCommonResponse>> Put([FromForm] CommodityFormDto data)
         {
-            var command = new UpdateCommodityCommand { CommodityFormDto = commodity};
+            var command = new UpdateCommodityCommand { CommodityFormDto = data};
             BaseCommonResponse response = await _mediator.Send(command);
             switch(response.Status){
                 case "200" : return Ok(response);

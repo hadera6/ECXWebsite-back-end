@@ -1,12 +1,12 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\hadera.teame\\source\\repos\\ECXWebsite\\ECX.Website.API\\wwwroot\\image\\3d690523-41bb-41e8-9c4d-4c493923259d.jpeg",
-      "PackagePath": "staticwebassets\\image\\3d690523-41bb-41e8-9c4d-4c493923259d.jpeg"
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\64e6b962-2a07-4a9b-a02c-c1c9b20520f3.jpeg",
+      "PackagePath": "staticwebassets\\image\\64e6b962-2a07-4a9b-a02c-c1c9b20520f3.jpeg"
     },
     {
-      "Id": "C:\\Users\\hadera.teame\\source\\repos\\ECXWebsite\\ECX.Website.API\\wwwroot\\image\\fb2762a4-0176-483a-8780-0fe6c8a1498b.jpeg",
-      "PackagePath": "staticwebassets\\image\\fb2762a4-0176-483a-8780-0fe6c8a1498b.jpeg"
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\e3c8e30a-9cad-4ccb-bf19-4ced5c10b622.jpeg",
+      "PackagePath": "staticwebassets\\image\\e3c8e30a-9cad-4ccb-bf19-4ced5c10b622.jpeg"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.ECX.Website.API.Microsoft.AspNetCore.StaticWebAssets.props",

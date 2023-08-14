@@ -1,11 +1,11 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\image\3d690523-41bb-41e8-9c4d-4c493923259d.jpeg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\image\64e6b962-2a07-4a9b-a02c-c1c9b20520f3.jpeg))">
       <SourceType>Package</SourceType>
       <SourceId>ECX.Website.API</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/ECX.Website.API</BasePath>
-      <RelativePath>image/3d690523-41bb-41e8-9c4d-4c493923259d.jpeg</RelativePath>
+      <RelativePath>image/64e6b962-2a07-4a9b-a02c-c1c9b20520f3.jpeg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -14,14 +14,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\image\3d690523-41bb-41e8-9c4d-4c493923259d.jpeg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\image\64e6b962-2a07-4a9b-a02c-c1c9b20520f3.jpeg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\image\fb2762a4-0176-483a-8780-0fe6c8a1498b.jpeg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\image\e3c8e30a-9cad-4ccb-bf19-4ced5c10b622.jpeg))">
       <SourceType>Package</SourceType>
       <SourceId>ECX.Website.API</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/ECX.Website.API</BasePath>
-      <RelativePath>image/fb2762a4-0176-483a-8780-0fe6c8a1498b.jpeg</RelativePath>
+      <RelativePath>image/e3c8e30a-9cad-4ccb-bf19-4ced5c10b622.jpeg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -30,7 +30,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\image\fb2762a4-0176-483a-8780-0fe6c8a1498b.jpeg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\image\e3c8e30a-9cad-4ccb-bf19-4ced5c10b622.jpeg))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ECX.Website.Application.DTOs.Commodity;
+using ECX.Website.Application.DTOs.News;
 using ECX.Website.Domain;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,18 @@ namespace ECX.Website.Application.Profiles
                 .ForMember(dest => dest.CreatedBy, act => act.MapFrom(src => src.CreatedBy))
                 .ForMember(dest => dest.UpdatedBy, act => act.MapFrom(src => src.UpdatedBy))
                 .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description)
+                ).ReverseMap();
+
+            CreateMap<NewsDto,News>().ReverseMap();
+
+            CreateMap<NewsFormDto, NewsDto>()
+                .ForMember(dest => dest.LangId, act => act.MapFrom(src => src.LangId))
+                .ForMember(dest => dest.Title, act => act.MapFrom(src => src.Title))
+                .ForMember(dest => dest.CreatedBy, act => act.MapFrom(src => src.CreatedBy))
+                .ForMember(dest => dest.UpdatedBy, act => act.MapFrom(src => src.UpdatedBy))
+                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description))
+                .ForMember(dest => dest.ExpDate, act => act.MapFrom(src => src.ExpDate))
+                .ForMember(dest => dest.Source, act => act.MapFrom(src => src.Source)
                 ).ReverseMap();
 
         }

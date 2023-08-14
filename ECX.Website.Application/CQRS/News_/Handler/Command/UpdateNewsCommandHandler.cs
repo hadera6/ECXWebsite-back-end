@@ -1,33 +1,33 @@
 ﻿using AutoMapper;
 using ECX.Website.Application.Contracts.Persistence;
-using ECX.Website.Application.CQRS.Commodities.Request.Command;
-using ECX.Website.Application.DTOs.Commodity;
-using ECX.Website.Application.DTOs.Commodity.Validators;
+using ECX.Website.Application.CQRS.News_.Request.Command;
+using ECX.Website.Application.DTOs.News;
+using ECX.Website.Application.DTOs.News.Validators;
 using ECX.Website.Application.DTOs.Common.Validators;
 using ECX.Website.Application.Exceptions;
 using ECX.Website.Application.Response;
 using ECX.Website.Domain;
 using MediatR;
 
-namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
+namespace ECX.Website.Application.CQRS.News_.Handler.Command
 {
-    public class UpdateCommodityCommandHandler : IRequestHandler<UpdateCommodityCommand, BaseCommonResponse>
+    public class UpdateNewsCommandHandler : IRequestHandler<UpdateNewsCommand, BaseCommonResponse>
     {
-        private ICommodityRepository _commodityRepository;
+        private INewsRepository _newsRepository;
         private IMapper _mapper;
-        public UpdateCommodityCommandHandler(ICommodityRepository commodityRepository, IMapper mapper)
+        public UpdateNewsCommandHandler(INewsRepository newsRepository, IMapper mapper)
         {
-            _commodityRepository = commodityRepository;
+            _newsRepository = newsRepository;
             _mapper = mapper;
         }
 
-        public async Task<BaseCommonResponse> Handle(UpdateCommodityCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommonResponse> Handle(UpdateNewsCommand request, CancellationToken cancellationToken)
         {
             var response = new BaseCommonResponse();
-            var validator = new CommodityUpdateDtoValidator();
-            var validationResult = await validator.ValidateAsync(request.CommodityFormDto);
-            var CommodityDto = _mapper.Map<CommodityDto>(request.CommodityFormDto);
-            var flag = await _commodityRepository.Exists(request.CommodityFormDto.Id);
+            var validator = new NewsUpdateDtoValidator();
+            var validationResult = await validator.ValidateAsync(request.NewsFormDto);
+            var NewsDto = _mapper.Map<NewsDto>(request.NewsFormDto);
+            var flag = await _newsRepository.Exists(request.NewsFormDto.Id);
 
             if (validationResult.IsValid == false)
             {
@@ -41,17 +41,17 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
 
                 response.Success = false;
                 response.Message = new NotFoundException(
-                            nameof(Commodity), request.CommodityFormDto.Id).Message.ToString();
+                            nameof(News), request.NewsFormDto.Id).Message.ToString();
                 response.Status = "404";
             }
             else 
             {
-                if (request.CommodityFormDto.ImgFile != null)
+                if (request.NewsFormDto.ImgFile != null)
                 {
                     try
                     {
                         var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.CommodityFormDto.ImgFile);
+                        var imgValidationResult = await imageValidator.ValidateAsync(request.NewsFormDto.ImgFile);
 
                         if (imgValidationResult.IsValid == false)
                         {
@@ -62,25 +62,25 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                         }
                         else
                         {
-                            var oldImage = (await _commodityRepository.GetById(
-                                request.CommodityFormDto.Id)).ImgName;
+                            var oldImage = (await _newsRepository.GetById(
+                                request.NewsFormDto.Id)).ImgName;
                             
 
                             string oldPath = Path.Combine(
                                 Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
                             File.Delete(oldPath);
 
-                            string contentType = request.CommodityFormDto.ImgFile.ContentType.ToString();
+                            string contentType = request.NewsFormDto.ImgFile.ContentType.ToString();
                             string ext = contentType.Split('/')[1];
                             string fileName = Guid.NewGuid().ToString() + "." + ext;
                             string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
 
                             using (Stream stream = new FileStream(path, FileMode.Create))
                             {
-                                request.CommodityFormDto.ImgFile.CopyTo(stream);
+                                request.NewsFormDto.ImgFile.CopyTo(stream);
                             }
                            
-                            CommodityDto.ImgName = fileName;
+                            NewsDto.ImgName = fileName;
                         }
                     }
                     catch (Exception ex)
@@ -93,17 +93,17 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 }
                 else
                 {
-                    CommodityDto.ImgName = (await _commodityRepository.GetById(
-                                request.CommodityFormDto.Id)).ImgName;
+                    NewsDto.ImgName = (await _newsRepository.GetById(
+                                request.NewsFormDto.Id)).ImgName;
                 } 
 
-                var commodity = await _commodityRepository.GetById(request.CommodityFormDto.Id);
+                var updateData = await _newsRepository.GetById(request.NewsFormDto.Id);
                 
-                _mapper.Map(CommodityDto, commodity);
+                _mapper.Map(NewsDto, updateData);
 
-                var data = await _commodityRepository.Update(commodity);
+                var data = await _newsRepository.Update(updateData);
 
-                response.Data = _mapper.Map<CommodityDto>(data);
+                response.Data = _mapper.Map<NewsDto>(data);
                 response.Success = true;
                 response.Message = "Updated Successfull";
                 response.Status = "200";

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using ECX.Website.Application.Contracts.Persistence;
-using ECX.Website.Application.CQRS.Commodities.Request.Command;
-using ECX.Website.Application.DTOs.Commodity;
-using ECX.Website.Application.DTOs.Commodity.Validators;
+using ECX.Website.Application.CQRS.News_.Request.Command;
+using ECX.Website.Application.DTOs.News;
+using ECX.Website.Application.DTOs.News.Validators;
 using ECX.Website.Application.Exceptions;
 
 using ECX.Website.Application.Response;
@@ -18,23 +18,23 @@ using System.Threading;
 using System.IO;
 using ECX.Website.Application.DTOs.Common.Validators;
 
-namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
+namespace ECX.Website.Application.CQRS.News_.Handler.Command
 {
-    public class CreateCommodityCommandHandler : IRequestHandler<CreateCommodityCommand, BaseCommonResponse>
+    public class CreateNewsCommandHandler : IRequestHandler<CreateNewsCommand, BaseCommonResponse>
     {
-        private ICommodityRepository _commodityRepository;
+        private INewsRepository _newsRepository;
         private IMapper _mapper;
         
-        public CreateCommodityCommandHandler(ICommodityRepository commodityRepository, IMapper mapper)
+        public CreateNewsCommandHandler(INewsRepository newsRepository, IMapper mapper)
         {
-            _commodityRepository = commodityRepository;
+            _newsRepository = newsRepository;
             _mapper = mapper;
         }
-        public async Task<BaseCommonResponse> Handle(CreateCommodityCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommonResponse> Handle(CreateNewsCommand request, CancellationToken cancellationToken)
         {
             var response = new BaseCommonResponse();
-            var validator = new CommodityCreateDtoValidator();
-            var validationResult = await validator.ValidateAsync(request.CommodityFormDto);
+            var validator = new NewsCreateDtoValidator();
+            var validationResult = await validator.ValidateAsync(request.NewsFormDto);
 
             if (validationResult.IsValid == false)
             {
@@ -48,7 +48,7 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                 try
                 {
                     var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.CommodityFormDto.ImgFile);
+                    var imgValidationResult = await imageValidator.ValidateAsync(request.NewsFormDto.ImgFile);
 
                     if (imgValidationResult.IsValid == false)
                     {
@@ -59,37 +59,37 @@ namespace ECX.Website.Application.CQRS.Commodities.Handler.Command
                     }
                     else
                     {
-                        string contentType = request.CommodityFormDto.ImgFile.ContentType.ToString();
+                        string contentType = request.NewsFormDto.ImgFile.ContentType.ToString();
                         string ext = contentType.Split('/')[1];
                         string fileName = Guid.NewGuid().ToString() +"."+ext;
                         string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
 
                         using (Stream stream = new FileStream(path, FileMode.Create))
                         {
-                            request.CommodityFormDto.ImgFile.CopyTo(stream);
+                            request.NewsFormDto.ImgFile.CopyTo(stream);
                         }
-                        var CommodityDto = _mapper.Map<CommodityDto>(request.CommodityFormDto);
-                        CommodityDto.ImgName = fileName;
+                        var NewsDto = _mapper.Map<NewsDto>(request.NewsFormDto);
+                        NewsDto.ImgName = fileName;
 
-                        string commodityId ;
+                        string newsId ;
                         bool flag = true;
 
                         while (true)
                         {
-                            commodityId = (Guid.NewGuid()).ToString();
-                            flag = await _commodityRepository.Exists(commodityId);
+                            newsId = (Guid.NewGuid()).ToString();
+                            flag = await _newsRepository.Exists(newsId);
                             if (flag == false)
                             {
-                                CommodityDto.Id = commodityId;
+                                NewsDto.Id = newsId;
                                 break;
                             }
                         }
 
-                        var commodity = _mapper.Map<Commodity>(CommodityDto);
+                        var data =_mapper.Map<News>(NewsDto);
                         
-                        var data = await _commodityRepository.Add(commodity);
+                        var saveData = await _newsRepository.Add(data);
 
-                        response.Data = _mapper.Map<CommodityDto>(data);
+                        response.Data = _mapper.Map<NewsDto>(saveData);
                         response.Success = true;
                         response.Message = "Created Successfully";
                         response.Status = "200";
