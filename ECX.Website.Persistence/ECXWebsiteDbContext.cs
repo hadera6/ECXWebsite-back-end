@@ -36,5 +36,8 @@ namespace ECX.Website.Persistence
         public DbSet<Commodity> Commodities { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Page> Pages { get; set; }
+        public DbSet<PageCatagory> PageCatagories { get; set; }
+        public DbSet<BoardOfDirector> BoardOfDirectors { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

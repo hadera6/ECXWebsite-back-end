@@ -17,10 +17,14 @@ namespace ECX.Website.Persistence
         {
             services.AddDbContext<ECXWebsiteDbContext>
                 (options => options.UseSqlServer(configuration.GetConnectionString("ECXWebsiteConnectionString")));
+            
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<ICommodityRepository, CommodityRepository>();
             services.AddScoped<INewsRepository, NewsRepository>();
             services.AddScoped<IPageRepository, PageRepository>();
+            services.AddScoped<IPageCatagoryRepository, PageCatagoryRepository>();
+            services.AddScoped<IBoardOfDirectorRepository, BoardOfDirectorRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
 
             return services;
         }
