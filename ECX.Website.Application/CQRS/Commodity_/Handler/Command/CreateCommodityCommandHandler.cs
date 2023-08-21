@@ -24,7 +24,7 @@ namespace ECX.Website.Application.CQRS.Commodity_.Handler.Command
     {
         private ICommodityRepository _commodityRepository;
         private IMapper _mapper;
-        
+
         public CreateCommodityCommandHandler(ICommodityRepository commodityRepository, IMapper mapper)
         {
             _commodityRepository = commodityRepository;
@@ -61,7 +61,7 @@ namespace ECX.Website.Application.CQRS.Commodity_.Handler.Command
                     {
                         string contentType = request.CommodityFormDto.ImgFile.ContentType.ToString();
                         string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() +"."+ext;
+                        string fileName = Guid.NewGuid().ToString() + "." + ext;
                         string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
 
                         using (Stream stream = new FileStream(path, FileMode.Create))
@@ -71,12 +71,12 @@ namespace ECX.Website.Application.CQRS.Commodity_.Handler.Command
                         var CommodityDto = _mapper.Map<CommodityDto>(request.CommodityFormDto);
                         CommodityDto.ImgName = fileName;
 
-                        string commodityId ;
+                        string commodityId;
                         bool flag = true;
 
                         while (true)
                         {
-                            commodityId = (Guid.NewGuid()).ToString();
+                            commodityId = Guid.NewGuid().ToString();
                             flag = await _commodityRepository.Exists(commodityId);
                             if (flag == false)
                             {
@@ -85,15 +85,15 @@ namespace ECX.Website.Application.CQRS.Commodity_.Handler.Command
                             }
                         }
 
-                        var data =_mapper.Map<Commodity>(CommodityDto);
-                        
+                        var data = _mapper.Map<Commodity>(CommodityDto);
+
                         var saveData = await _commodityRepository.Add(data);
 
                         response.Data = _mapper.Map<CommodityDto>(saveData);
                         response.Success = true;
                         response.Message = "Created Successfully";
                         response.Status = "200";
-                    }    
+                    }
                 }
                 catch (Exception ex)
                 {

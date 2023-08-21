@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\0d302e94-fbd4-436d-8c05-b6de6c1cd5ba.jpeg",
+      "PackagePath": "staticwebassets\\image\\0d302e94-fbd4-436d-8c05-b6de6c1cd5ba.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\23c5a877-24ca-48b4-86e2-9c5dc37fbf8b.jpeg",
+      "PackagePath": "staticwebassets\\image\\23c5a877-24ca-48b4-86e2-9c5dc37fbf8b.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\3b185ffb-3499-48a0-818e-547883cbc358.png",
+      "PackagePath": "staticwebassets\\image\\3b185ffb-3499-48a0-818e-547883cbc358.png"
+    },
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\6629e66a-8e8d-4e4b-bb6e-b471c7fc521b.png",
+      "PackagePath": "staticwebassets\\image\\6629e66a-8e8d-4e4b-bb6e-b471c7fc521b.png"
+    },
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\683e4c77-57f7-4e60-b0c8-c92a7a05ae60.jpeg",
+      "PackagePath": "staticwebassets\\image\\683e4c77-57f7-4e60-b0c8-c92a7a05ae60.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\75e8357d-04d0-4dd8-b2ff-081ccdf42c80.png",
+      "PackagePath": "staticwebassets\\image\\75e8357d-04d0-4dd8-b2ff-081ccdf42c80.png"
+    },
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\8e94ba41-0bb8-4e08-a9a7-e9edb87e4958.jpeg",
+      "PackagePath": "staticwebassets\\image\\8e94ba41-0bb8-4e08-a9a7-e9edb87e4958.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\ad586802-67ad-4df6-8b53-3e697a7d7ae6.png",
+      "PackagePath": "staticwebassets\\image\\ad586802-67ad-4df6-8b53-3e697a7d7ae6.png"
+    },
+    {
+      "Id": "C:\\Users\\Hadera\\Desktop\\ECXWebsite\\ECXWebsite-back-end\\ECX.Website.API\\wwwroot\\image\\c7691313-2252-44b7-b688-a8f0ab6c4772.jpeg",
+      "PackagePath": "staticwebassets\\image\\c7691313-2252-44b7-b688-a8f0ab6c4772.jpeg"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.ECX.Website.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.ECX.Website.API.props",
+      "PackagePath": "build\\ECX.Website.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.ECX.Website.API.props",
+      "PackagePath": "buildMultiTargeting\\ECX.Website.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.ECX.Website.API.props",
+      "PackagePath": "buildTransitive\\ECX.Website.API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

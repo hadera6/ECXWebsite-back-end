@@ -39,5 +39,27 @@ namespace ECX.Website.Persistence
         public DbSet<PageCatagory> PageCatagories { get; set; }
         public DbSet<BoardOfDirector> BoardOfDirectors { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<Applicant> Applicants { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Brochure> Brochures { get; set; }
+        public DbSet<ContractFile> ContractFiles { get; set; }
+        public DbSet<ExternalLink> ExternalLinks { get; set; }
+        public DbSet<Faq> Faqs { get; set; }
+        public DbSet<FeedBack> FeedBacks { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Publication> Publications { get; set; }
+        public DbSet<Research> Researchs { get; set; }
+        public DbSet<SocialMedia> SocialMedias { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<TradingCenter> TradingCenters { get; set; }
+        public DbSet<Training> Trainings { get; set; }
+        public DbSet<TrainingDoc> TrainingDocs { get; set; }
+        public DbSet<Vacancy> Vacancys { get; set; }
+        public DbSet<Video> Videos { get; set; }
+        public DbSet<WareHouse> WareHouses { get; set; }
+        
     }
 }

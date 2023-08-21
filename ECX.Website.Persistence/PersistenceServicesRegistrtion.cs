@@ -25,7 +25,29 @@ namespace ECX.Website.Persistence
             services.AddScoped<IPageCatagoryRepository, PageCatagoryRepository>();
             services.AddScoped<IBoardOfDirectorRepository, BoardOfDirectorRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+            services.AddScoped<IApplicantRepository, ApplicantRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
+            services.AddScoped<IBrochureRepository, BrochureRepository>();
+            services.AddScoped<IContractFileRepository, ContractFileRepository>();
+            services.AddScoped<IExternalLinkRepository, ExternalLinkRepository>();
+            services.AddScoped<IFaqRepository, FaqRepository>();
+            services.AddScoped<IFeedBackRepository, FeedBackRepository>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IPublicationRepository, PublicationRepository>();
+            services.AddScoped<IResearchRepository, ResearchRepository>();
+            services.AddScoped<ISocialMediaRepository, SocialMediaRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<ITradingCenterRepository, TradingCenterRepository>();
+            services.AddScoped<ITrainingRepository, TrainingRepository>();
+            services.AddScoped<ITrainingDocRepository, TrainingDocRepository>();
+            services.AddScoped<IVacancyRepository, VacancyRepository>();
+            services.AddScoped<IVideoRepository, VideoRepository>();
+            services.AddScoped<IWareHouseRepository, WareHouseRepository>();
 
+            
             return services;
         }
 

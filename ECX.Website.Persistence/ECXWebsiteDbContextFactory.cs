@@ -19,6 +19,5 @@ namespace ECX.Website.Persistence
                 return new ECXWebsiteDbContext(builder.Options);
             }
         }
-
     }
 }
