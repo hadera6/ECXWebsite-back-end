@@ -9,9 +9,7 @@ namespace ECX.Website.Application.DTOs.Language
 {
     public class LanguageDto : BaseDtos
     {
-        public string LangId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImgName { get; set; }
+       
     }
 }

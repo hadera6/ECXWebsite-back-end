@@ -10,9 +10,6 @@ namespace ECX.Website.Application.DTOs.Language
 {
     public class LanguageFormDto : BaseDtos
     {
-        public string LangId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public IFormFile ImgFile{get;set;}
     }
 }

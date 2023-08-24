@@ -45,64 +45,33 @@ namespace ECX.Website.Application.CQRS.Language_.Handler.Command
             }
             else
             {
-                try
+                var LanguageDto = _mapper.Map<LanguageDto>(request.LanguageFormDto);
+                
+                string languageId;
+                bool flag = true;
+
+                while (true)
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.LanguageFormDto.ImgFile);
-
-                    if (imgValidationResult.IsValid == false)
+                    languageId = Guid.NewGuid().ToString();
+                    flag = await _languageRepository.Exists(languageId);
+                    if (flag == false)
                     {
-                        response.Success = false;
-                        response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
-                        response.Status = "400";
-                    }
-                    else
-                    {
-                        string contentType = request.LanguageFormDto.ImgFile.ContentType.ToString();
-                        string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
-
-                        using (Stream stream = new FileStream(path, FileMode.Create))
-                        {
-                            request.LanguageFormDto.ImgFile.CopyTo(stream);
-                        }
-                        var LanguageDto = _mapper.Map<LanguageDto>(request.LanguageFormDto);
-                        LanguageDto.ImgName = fileName;
-
-                        string languageId;
-                        bool flag = true;
-
-                        while (true)
-                        {
-                            languageId = Guid.NewGuid().ToString();
-                            flag = await _languageRepository.Exists(languageId);
-                            if (flag == false)
-                            {
-                                LanguageDto.Id = languageId;
-                                break;
-                            }
-                        }
-
-                        var data = _mapper.Map<Language>(LanguageDto);
-
-                        var saveData = await _languageRepository.Add(data);
-
-                        response.Data = _mapper.Map<LanguageDto>(saveData);
-                        response.Success = true;
-                        response.Message = "Created Successfully";
-                        response.Status = "200";
+                        LanguageDto.Id = languageId;
+                        break;
                     }
                 }
-                catch (Exception ex)
-                {
-                    response.Success = false;
-                    response.Message = "Creation Failed";
-                    response.Errors = new List<string> { ex.Message };
-                    response.Status = "400";
-                }
+
+                var data = _mapper.Map<Language>(LanguageDto);
+
+                var saveData = await _languageRepository.Add(data);
+
+                response.Data = _mapper.Map<LanguageDto>(saveData);
+                response.Success = true;
+                response.Message = "Created Successfully";
+                response.Status = "200";
             }
+                
+            
             return response;
         }
     }

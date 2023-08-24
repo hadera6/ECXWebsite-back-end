@@ -3,6 +3,7 @@ using ECX.Website.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ECX.Website.Persistence.Repositories
 {
@@ -13,6 +14,12 @@ namespace ECX.Website.Persistence.Repositories
         public PageRepository(ECXWebsiteDbContext context) : base(context)
         {
             _context = context;
+        }
+        public async Task<IEnumerable<Page>> GetByPageCatagoryLangId(string catagoryId,string langId)
+        { 
+            return _context.Set<Page>().Where(
+                p => p.CatagoryId == catagoryId && p.LangId == langId
+                ).ToList();  
         }
     }
 }

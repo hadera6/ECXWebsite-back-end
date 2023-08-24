@@ -23,6 +23,19 @@ namespace ECX.Website.API.Controllers
         }
 
         // GET: api/<PageController>
+        [HttpGet("{id1}/{id2}")]
+        public async Task<ActionResult<BaseCommonResponse>> Get(string id1, string id2)
+        {
+            var query = new GetPageListByParamsRequest{CatagoryId =id1, LangId = id2};
+            BaseCommonResponse response = await _mediator.Send(query);
+            switch(response.Status){
+                case "200" : return Ok(response);
+                case "400" : return BadRequest(response);
+                case "404" : return NotFound(response);
+                default : return response;  
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult<BaseCommonResponse>> Get()
         {
