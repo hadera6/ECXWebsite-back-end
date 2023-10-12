@@ -31,7 +31,7 @@ namespace ECX.Website.Application.CQRS.Blog_.Handler.Queries
         public async Task<BaseCommonResponse> Handle(GetBlogListRequest request, CancellationToken cancellationToken)
         {
             var response = new BaseCommonResponse();
-            var data = await _blogRepository.GetAll();
+            var data = await _blogRepository.GetAllBlogs();
 
             response.Success = true;
             response.Data = _mapper.Map<List<BlogDto>>(data);

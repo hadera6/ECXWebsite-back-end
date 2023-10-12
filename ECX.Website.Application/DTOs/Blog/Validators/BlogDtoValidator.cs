@@ -11,10 +11,10 @@ namespace ECX.Website.Application.DTOs.Blog.Validators
     {
         public BlogDtoValidator()
         {
-            RuleFor(p=>p.Name)
+            RuleFor(p=>p.Title)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Description)
+            RuleFor(p => p.Body)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
         }

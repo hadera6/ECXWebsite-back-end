@@ -40,11 +40,6 @@ namespace ECX.Website.Application.CQRS.Faq_.Handler.Command
             {
                 await _faqRepository.Delete(data);
 
-                string path = Path.Combine(
-                    Directory.GetCurrentDirectory(), @"wwwroot\image", data.ImgName);
-
-                File.Delete(path);
-
                 response.Success = true;
                 response.Message = "Successfully Deleted";
                 response.Status = "200";

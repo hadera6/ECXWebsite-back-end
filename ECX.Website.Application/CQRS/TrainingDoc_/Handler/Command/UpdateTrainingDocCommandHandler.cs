@@ -46,41 +46,41 @@ namespace ECX.Website.Application.CQRS.TrainingDoc_.Handler.Command
             }
             else 
             {
-                if (request.TrainingDocFormDto.ImgFile != null)
+                if (request.TrainingDocFormDto.File != null)
                 {
                     try
                     {
-                        var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.TrainingDocFormDto.ImgFile);
+                        var pdfValidator = new PdfValidator();
+                        var pdfValidationResult = await pdfValidator.ValidateAsync(request.TrainingDocFormDto.File);
 
-                        if (imgValidationResult.IsValid == false)
+                        if (pdfValidationResult.IsValid == false)
                         {
                             response.Success = false;
                             response.Message = "Update Failed";
-                            response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                            response.Errors = pdfValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                             response.Status = "400";
                         }
                         else
                         {
-                            var oldImage = (await _trainingDocRepository.GetById(
-                                request.TrainingDocFormDto.Id)).ImgName;
+                            var oldPdf = (await _trainingDocRepository.GetById(
+                                request.TrainingDocFormDto.Id)).FileName;
                             
 
                             string oldPath = Path.Combine(
-                                Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
+                                Directory.GetCurrentDirectory(), @"wwwroot\pdf",oldPdf);
                             File.Delete(oldPath);
 
-                            string contentType = request.TrainingDocFormDto.ImgFile.ContentType.ToString();
+                            string contentType = request.TrainingDocFormDto.File.ContentType.ToString();
                             string ext = contentType.Split('/')[1];
                             string fileName = Guid.NewGuid().ToString() + "." + ext;
-                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\pdf", fileName);
 
                             using (Stream stream = new FileStream(path, FileMode.Create))
                             {
-                                request.TrainingDocFormDto.ImgFile.CopyTo(stream);
+                                request.TrainingDocFormDto.File.CopyTo(stream);
                             }
                            
-                            TrainingDocDto.ImgName = fileName;
+                            TrainingDocDto.FileName = fileName;
                         }
                     }
                     catch (Exception ex)
@@ -93,8 +93,8 @@ namespace ECX.Website.Application.CQRS.TrainingDoc_.Handler.Command
                 }
                 else
                 {
-                    TrainingDocDto.ImgName = (await _trainingDocRepository.GetById(
-                                request.TrainingDocFormDto.Id)).ImgName;
+                    TrainingDocDto.FileName = (await _trainingDocRepository.GetById(
+                                request.TrainingDocFormDto.Id)).FileName;
                 } 
 
                 var updateData = await _trainingDocRepository.GetById(request.TrainingDocFormDto.Id);

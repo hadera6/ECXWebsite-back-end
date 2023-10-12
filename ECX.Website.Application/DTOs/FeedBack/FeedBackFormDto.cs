@@ -11,8 +11,7 @@ namespace ECX.Website.Application.DTOs.FeedBack
     public class FeedBackFormDto : BaseDtos
     {
         public string LangId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public IFormFile ImgFile{get;set;}
+        public string Subject { get; set; }
+        public string Comment { get; set; }
     }
 }

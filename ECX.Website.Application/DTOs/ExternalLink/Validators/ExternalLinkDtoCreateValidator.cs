@@ -21,7 +21,7 @@ namespace ECX.Website.Application.DTOs.ExternalLink.Validators
             RuleFor(p => p.Description)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
-            RuleFor(p => p.ImgFile)
+            RuleFor(p => p.Url)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
         }

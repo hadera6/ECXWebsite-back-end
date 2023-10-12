@@ -11,10 +11,10 @@ namespace ECX.Website.Application.DTOs.Faq.Validators
     {
         public FaqDtoValidator()
         {
-            RuleFor(p=>p.Name)
+            RuleFor(p=>p.Answer)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Description)
+            RuleFor(p => p.Question)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
         }

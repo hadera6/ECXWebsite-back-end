@@ -21,7 +21,7 @@ namespace ECX.Website.Application.DTOs.TrainingDoc.Validators
             RuleFor(p => p.Description)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
-            RuleFor(p => p.ImgFile)
+            RuleFor(p => p.File)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
         }

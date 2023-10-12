@@ -15,9 +15,9 @@ namespace ECX.Website.Application.CQRS.ContractFile_.Handler.Command
     {
         private IContractFileRepository _contractFileRepository;
         private IMapper _mapper;
-        public UpdateContractFileCommandHandler(IContractFileRepository contractFileRepository, IMapper mapper)
+        public UpdateContractFileCommandHandler(IContractFileRepository ContractFileRepository, IMapper mapper)
         {
-            _contractFileRepository = contractFileRepository;
+            _contractFileRepository = ContractFileRepository;
             _mapper = mapper;
         }
 
@@ -46,41 +46,41 @@ namespace ECX.Website.Application.CQRS.ContractFile_.Handler.Command
             }
             else 
             {
-                if (request.ContractFileFormDto.ImgFile != null)
+                if (request.ContractFileFormDto.File != null)
                 {
                     try
                     {
-                        var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.ContractFileFormDto.ImgFile);
+                        var pdfValidator = new PdfValidator();
+                        var pdfValidationResult = await pdfValidator.ValidateAsync(request.ContractFileFormDto.File);
 
-                        if (imgValidationResult.IsValid == false)
+                        if (pdfValidationResult.IsValid == false)
                         {
                             response.Success = false;
                             response.Message = "Update Failed";
-                            response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                            response.Errors = pdfValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                             response.Status = "400";
                         }
                         else
                         {
-                            var oldImage = (await _contractFileRepository.GetById(
-                                request.ContractFileFormDto.Id)).ImgName;
+                            var oldPdf = (await _contractFileRepository.GetById(
+                                request.ContractFileFormDto.Id)).FileName;
                             
 
                             string oldPath = Path.Combine(
-                                Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
+                                Directory.GetCurrentDirectory(), @"wwwroot\pdf",oldPdf);
                             File.Delete(oldPath);
 
-                            string contentType = request.ContractFileFormDto.ImgFile.ContentType.ToString();
+                            string contentType = request.ContractFileFormDto.File.ContentType.ToString();
                             string ext = contentType.Split('/')[1];
                             string fileName = Guid.NewGuid().ToString() + "." + ext;
-                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\pdf", fileName);
 
                             using (Stream stream = new FileStream(path, FileMode.Create))
                             {
-                                request.ContractFileFormDto.ImgFile.CopyTo(stream);
+                                request.ContractFileFormDto.File.CopyTo(stream);
                             }
                            
-                            ContractFileDto.ImgName = fileName;
+                            ContractFileDto.FileName = fileName;
                         }
                     }
                     catch (Exception ex)
@@ -93,8 +93,8 @@ namespace ECX.Website.Application.CQRS.ContractFile_.Handler.Command
                 }
                 else
                 {
-                    ContractFileDto.ImgName = (await _contractFileRepository.GetById(
-                                request.ContractFileFormDto.Id)).ImgName;
+                    ContractFileDto.FileName = (await _contractFileRepository.GetById(
+                                request.ContractFileFormDto.Id)).FileName;
                 } 
 
                 var updateData = await _contractFileRepository.GetById(request.ContractFileFormDto.Id);

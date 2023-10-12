@@ -21,7 +21,7 @@ namespace ECX.Website.Application.DTOs.Video.Validators
             RuleFor(p => p.Description)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
-            RuleFor(p => p.ImgFile)
+            RuleFor(p => p.VideoFile)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
         }

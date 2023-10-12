@@ -10,9 +10,11 @@ namespace ECX.Website.Application.DTOs.Account
 {
     public class AccountFormDto : BaseDtos
     {
-        public string LangId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string UserName { get; set; }
+        public string FName { get; set; }
+        public string LName { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
         public IFormFile ImgFile{get;set;}
     }
 }

@@ -41,7 +41,7 @@ namespace ECX.Website.Application.CQRS.ContractFile_.Handler.Command
                 await _contractFileRepository.Delete(data);
 
                 string path = Path.Combine(
-                    Directory.GetCurrentDirectory(), @"wwwroot\image", data.ImgName);
+                    Directory.GetCurrentDirectory(), @"wwwroot\pdf", data.FileName);
 
                 File.Delete(path);
 

@@ -12,6 +12,6 @@ namespace ECX.Website.Application.DTOs.Publication
         public string LangId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string ImgName { get; set; }
+        public string FileName { get; set; }
     }
 }

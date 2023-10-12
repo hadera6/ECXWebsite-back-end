@@ -12,16 +12,13 @@ namespace ECX.Website.Application.DTOs.Applicant.Validators
         public ApplicantCreateDtoValidator()
         {
 
-            RuleFor(p => p.LangId)
+            RuleFor(p => p.FName)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Name)
-                .NotEmpty().WithMessage("{PropertyName} is requiered.")
-                .NotNull();
-            RuleFor(p => p.Description)
+            RuleFor(p => p.LName)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
-            RuleFor(p => p.ImgFile)
+            RuleFor(p => p.File)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
         }

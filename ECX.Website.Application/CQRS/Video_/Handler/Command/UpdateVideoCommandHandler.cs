@@ -46,41 +46,41 @@ namespace ECX.Website.Application.CQRS.Video_.Handler.Command
             }
             else 
             {
-                if (request.VideoFormDto.ImgFile != null)
+                if (request.VideoFormDto.VideoFile != null)
                 {
                     try
                     {
-                        var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.VideoFormDto.ImgFile);
+                        var videoValidator = new VideoValidator();
+                        var videoValidationResult = await videoValidator.ValidateAsync(request.VideoFormDto.VideoFile);
 
-                        if (imgValidationResult.IsValid == false)
+                        if (videoValidationResult.IsValid == false)
                         {
                             response.Success = false;
                             response.Message = "Update Failed";
-                            response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                            response.Errors = videoValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                             response.Status = "400";
                         }
                         else
                         {
-                            var oldImage = (await _videoRepository.GetById(
-                                request.VideoFormDto.Id)).ImgName;
+                            var oldVideo = (await _videoRepository.GetById(
+                                request.VideoFormDto.Id)).VideoName;
                             
 
                             string oldPath = Path.Combine(
-                                Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
+                                Directory.GetCurrentDirectory(), @"wwwroot\video",oldVideo);
                             File.Delete(oldPath);
 
-                            string contentType = request.VideoFormDto.ImgFile.ContentType.ToString();
+                            string contentType = request.VideoFormDto.VideoFile.ContentType.ToString();
                             string ext = contentType.Split('/')[1];
                             string fileName = Guid.NewGuid().ToString() + "." + ext;
-                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\video", fileName);
 
                             using (Stream stream = new FileStream(path, FileMode.Create))
                             {
-                                request.VideoFormDto.ImgFile.CopyTo(stream);
+                                request.VideoFormDto.VideoFile.CopyTo(stream);
                             }
                            
-                            VideoDto.ImgName = fileName;
+                            VideoDto.VideoName = fileName;
                         }
                     }
                     catch (Exception ex)
@@ -93,8 +93,8 @@ namespace ECX.Website.Application.CQRS.Video_.Handler.Command
                 }
                 else
                 {
-                    VideoDto.ImgName = (await _videoRepository.GetById(
-                                request.VideoFormDto.Id)).ImgName;
+                    VideoDto.VideoName = (await _videoRepository.GetById(
+                                request.VideoFormDto.Id)).VideoName;
                 } 
 
                 var updateData = await _videoRepository.GetById(request.VideoFormDto.Id);

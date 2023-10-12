@@ -47,29 +47,29 @@ namespace ECX.Website.Application.CQRS.Video_.Handler.Command
             {
                 try
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.VideoFormDto.ImgFile);
+                    var videoValidator = new VideoValidator();
+                    var videoValidationResult = await videoValidator.ValidateAsync(request.VideoFormDto.VideoFile);
 
-                    if (imgValidationResult.IsValid == false)
+                    if (videoValidationResult.IsValid == false)
                     {
                         response.Success = false;
                         response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                        response.Errors = videoValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                         response.Status = "400";
                     }
                     else
                     {
-                        string contentType = request.VideoFormDto.ImgFile.ContentType.ToString();
+                        string contentType = request.VideoFormDto.VideoFile.ContentType.ToString();
                         string ext = contentType.Split('/')[1];
                         string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\video", fileName);
 
                         using (Stream stream = new FileStream(path, FileMode.Create))
                         {
-                            request.VideoFormDto.ImgFile.CopyTo(stream);
+                            request.VideoFormDto.VideoFile.CopyTo(stream);
                         }
                         var VideoDto = _mapper.Map<VideoDto>(request.VideoFormDto);
-                        VideoDto.ImgName = fileName;
+                        VideoDto.VideoName = fileName;
 
                         string videoId;
                         bool flag = true;

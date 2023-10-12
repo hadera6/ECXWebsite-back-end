@@ -21,5 +21,6 @@ namespace ECX.Website.Persistence.Repositories
                 p => p.CatagoryId == catagoryId && p.LangId == langId
                 ).ToList();  
         }
+        
     }
 }

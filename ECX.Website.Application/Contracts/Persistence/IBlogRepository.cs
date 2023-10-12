@@ -9,6 +9,6 @@ namespace ECX.Website.Application.Contracts.Persistence
 {
     public interface IBlogRepository : IGenericRepository<Blog>
     {
-
+        Task<IEnumerable<Blog>> GetAllBlogs();
     }
 }

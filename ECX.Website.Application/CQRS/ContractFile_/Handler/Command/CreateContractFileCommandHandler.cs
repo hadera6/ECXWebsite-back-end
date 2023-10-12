@@ -24,7 +24,7 @@ namespace ECX.Website.Application.CQRS.ContractFile_.Handler.Command
     {
         private IContractFileRepository _contractFileRepository;
         private IMapper _mapper;
-
+        
         public CreateContractFileCommandHandler(IContractFileRepository contractFileRepository, IMapper mapper)
         {
             _contractFileRepository = contractFileRepository;
@@ -47,36 +47,36 @@ namespace ECX.Website.Application.CQRS.ContractFile_.Handler.Command
             {
                 try
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.ContractFileFormDto.ImgFile);
+                    var pdfValidator = new PdfValidator();
+                    var pdfValidationResult = await pdfValidator.ValidateAsync(request.ContractFileFormDto.File);
 
-                    if (imgValidationResult.IsValid == false)
+                    if (pdfValidationResult.IsValid == false)
                     {
                         response.Success = false;
                         response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                        response.Errors = pdfValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                         response.Status = "400";
                     }
                     else
                     {
-                        string contentType = request.ContractFileFormDto.ImgFile.ContentType.ToString();
+                        string contentType = request.ContractFileFormDto.File.ContentType.ToString();
                         string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                        string fileName = Guid.NewGuid().ToString() +"."+ext;
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\pdf", fileName);
 
                         using (Stream stream = new FileStream(path, FileMode.Create))
                         {
-                            request.ContractFileFormDto.ImgFile.CopyTo(stream);
+                            request.ContractFileFormDto.File.CopyTo(stream);
                         }
                         var ContractFileDto = _mapper.Map<ContractFileDto>(request.ContractFileFormDto);
-                        ContractFileDto.ImgName = fileName;
+                        ContractFileDto.FileName = fileName;
 
-                        string contractFileId;
+                        string contractFileId ;
                         bool flag = true;
 
                         while (true)
                         {
-                            contractFileId = Guid.NewGuid().ToString();
+                            contractFileId = (Guid.NewGuid()).ToString();
                             flag = await _contractFileRepository.Exists(contractFileId);
                             if (flag == false)
                             {
@@ -85,15 +85,15 @@ namespace ECX.Website.Application.CQRS.ContractFile_.Handler.Command
                             }
                         }
 
-                        var data = _mapper.Map<ContractFile>(ContractFileDto);
-
+                        var data =_mapper.Map<ContractFile>(ContractFileDto);
+                        
                         var saveData = await _contractFileRepository.Add(data);
 
                         response.Data = _mapper.Map<ContractFileDto>(saveData);
                         response.Success = true;
                         response.Message = "Created Successfully";
                         response.Status = "200";
-                    }
+                    }    
                 }
                 catch (Exception ex)
                 {

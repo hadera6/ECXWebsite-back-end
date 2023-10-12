@@ -24,7 +24,7 @@ namespace ECX.Website.Application.CQRS.Announcement_.Handler.Command
     {
         private IAnnouncementRepository _announcementRepository;
         private IMapper _mapper;
-
+        
         public CreateAnnouncementCommandHandler(IAnnouncementRepository announcementRepository, IMapper mapper)
         {
             _announcementRepository = announcementRepository;
@@ -47,31 +47,31 @@ namespace ECX.Website.Application.CQRS.Announcement_.Handler.Command
             {
                 try
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.AnnouncementFormDto.ImgFile);
+                    var pdfValidator = new PdfValidator();
+                    var pdfValidationResult = await pdfValidator.ValidateAsync(request.AnnouncementFormDto.File);
 
-                    if (imgValidationResult.IsValid == false)
+                    if (pdfValidationResult.IsValid == false)
                     {
                         response.Success = false;
                         response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                        response.Errors = pdfValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                         response.Status = "400";
                     }
                     else
                     {
-                        string contentType = request.AnnouncementFormDto.ImgFile.ContentType.ToString();
+                        string contentType = request.AnnouncementFormDto.File.ContentType.ToString();
                         string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                        string fileName = Guid.NewGuid().ToString() +"."+ext;
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\pdf", fileName);
 
                         using (Stream stream = new FileStream(path, FileMode.Create))
                         {
-                            request.AnnouncementFormDto.ImgFile.CopyTo(stream);
+                            request.AnnouncementFormDto.File.CopyTo(stream);
                         }
                         var AnnouncementDto = _mapper.Map<AnnouncementDto>(request.AnnouncementFormDto);
-                        AnnouncementDto.ImgName = fileName;
+                        AnnouncementDto.FileName = fileName;
 
-                        string announcementId;
+                        string announcementId ;
                         bool flag = true;
 
                         while (true)
@@ -85,15 +85,15 @@ namespace ECX.Website.Application.CQRS.Announcement_.Handler.Command
                             }
                         }
 
-                        var data = _mapper.Map<Announcement>(AnnouncementDto);
-
+                        var data =_mapper.Map<Announcement>(AnnouncementDto);
+                        
                         var saveData = await _announcementRepository.Add(data);
 
                         response.Data = _mapper.Map<AnnouncementDto>(saveData);
                         response.Success = true;
                         response.Message = "Created Successfully";
                         response.Status = "200";
-                    }
+                    }    
                 }
                 catch (Exception ex)
                 {

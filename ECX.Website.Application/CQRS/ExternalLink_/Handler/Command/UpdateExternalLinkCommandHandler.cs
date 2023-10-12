@@ -46,57 +46,6 @@ namespace ECX.Website.Application.CQRS.ExternalLink_.Handler.Command
             }
             else 
             {
-                if (request.ExternalLinkFormDto.ImgFile != null)
-                {
-                    try
-                    {
-                        var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.ExternalLinkFormDto.ImgFile);
-
-                        if (imgValidationResult.IsValid == false)
-                        {
-                            response.Success = false;
-                            response.Message = "Update Failed";
-                            response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
-                            response.Status = "400";
-                        }
-                        else
-                        {
-                            var oldImage = (await _externalLinkRepository.GetById(
-                                request.ExternalLinkFormDto.Id)).ImgName;
-                            
-
-                            string oldPath = Path.Combine(
-                                Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
-                            File.Delete(oldPath);
-
-                            string contentType = request.ExternalLinkFormDto.ImgFile.ContentType.ToString();
-                            string ext = contentType.Split('/')[1];
-                            string fileName = Guid.NewGuid().ToString() + "." + ext;
-                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
-
-                            using (Stream stream = new FileStream(path, FileMode.Create))
-                            {
-                                request.ExternalLinkFormDto.ImgFile.CopyTo(stream);
-                            }
-                           
-                            ExternalLinkDto.ImgName = fileName;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        response.Success = false;
-                        response.Message = "Update Failed";
-                        response.Errors = new List<string> { ex.Message };
-                        response.Status = "400";
-                    }
-                }
-                else
-                {
-                    ExternalLinkDto.ImgName = (await _externalLinkRepository.GetById(
-                                request.ExternalLinkFormDto.Id)).ImgName;
-                } 
-
                 var updateData = await _externalLinkRepository.GetById(request.ExternalLinkFormDto.Id);
                 
                 _mapper.Map(ExternalLinkDto, updateData);
@@ -111,5 +60,5 @@ namespace ECX.Website.Application.CQRS.ExternalLink_.Handler.Command
             return response;
         }
     }
- }
+}
 

@@ -10,9 +10,9 @@ namespace ECX.Website.Application.DTOs.Applicant
 {
     public class ApplicantFormDto : BaseDtos
     {
-        public string LangId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public IFormFile ImgFile{get;set;}
+        public string FName { get; set; }
+        public string LName { get; set; }
+        public string EduStatus { get; set; }
+        public IFormFile File { get; set; }
     }
 }

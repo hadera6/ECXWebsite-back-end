@@ -8,10 +8,10 @@ namespace ECX.Website.Domain
     public class Applicant : BaseDomainEntity
     {
 
-        public string LangId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImgName { get; set; }
-
+        public string FName { get; set; }
+        public string LName { get; set; }
+        public string EduStatus { get; set; }
+        public string FileName { get; set; }
+        
     }
 }

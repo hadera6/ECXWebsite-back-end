@@ -24,7 +24,7 @@ namespace ECX.Website.Application.CQRS.TrainingDoc_.Handler.Command
     {
         private ITrainingDocRepository _trainingDocRepository;
         private IMapper _mapper;
-
+        
         public CreateTrainingDocCommandHandler(ITrainingDocRepository trainingDocRepository, IMapper mapper)
         {
             _trainingDocRepository = trainingDocRepository;
@@ -47,31 +47,31 @@ namespace ECX.Website.Application.CQRS.TrainingDoc_.Handler.Command
             {
                 try
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.TrainingDocFormDto.ImgFile);
+                    var pdfValidator = new PdfValidator();
+                    var pdfValidationResult = await pdfValidator.ValidateAsync(request.TrainingDocFormDto.File);
 
-                    if (imgValidationResult.IsValid == false)
+                    if (pdfValidationResult.IsValid == false)
                     {
                         response.Success = false;
                         response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                        response.Errors = pdfValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                         response.Status = "400";
                     }
                     else
                     {
-                        string contentType = request.TrainingDocFormDto.ImgFile.ContentType.ToString();
+                        string contentType = request.TrainingDocFormDto.File.ContentType.ToString();
                         string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                        string fileName = Guid.NewGuid().ToString() +"."+ext;
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\pdf", fileName);
 
                         using (Stream stream = new FileStream(path, FileMode.Create))
                         {
-                            request.TrainingDocFormDto.ImgFile.CopyTo(stream);
+                            request.TrainingDocFormDto.File.CopyTo(stream);
                         }
                         var TrainingDocDto = _mapper.Map<TrainingDocDto>(request.TrainingDocFormDto);
-                        TrainingDocDto.ImgName = fileName;
+                        TrainingDocDto.FileName = fileName;
 
-                        string trainingDocId;
+                        string trainingDocId ;
                         bool flag = true;
 
                         while (true)
@@ -85,15 +85,15 @@ namespace ECX.Website.Application.CQRS.TrainingDoc_.Handler.Command
                             }
                         }
 
-                        var data = _mapper.Map<TrainingDoc>(TrainingDocDto);
-
+                        var data =_mapper.Map<TrainingDoc>(TrainingDocDto);
+                        
                         var saveData = await _trainingDocRepository.Add(data);
 
                         response.Data = _mapper.Map<TrainingDocDto>(saveData);
                         response.Success = true;
                         response.Message = "Created Successfully";
                         response.Status = "200";
-                    }
+                    }    
                 }
                 catch (Exception ex)
                 {

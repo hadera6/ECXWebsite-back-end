@@ -24,6 +24,9 @@ namespace ECX.Website.Application.DTOs.SocialMedia.Validators
             RuleFor(p => p.ImgFile)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
+            RuleFor(p => p.Url)
+                .NotEmpty().WithMessage("{PropertyName} is requiered.")
+                .NotNull();
         }
     }
 }

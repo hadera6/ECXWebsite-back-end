@@ -46,41 +46,41 @@ namespace ECX.Website.Application.CQRS.Research_.Handler.Command
             }
             else 
             {
-                if (request.ResearchFormDto.ImgFile != null)
+                if (request.ResearchFormDto.File != null)
                 {
                     try
                     {
-                        var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.ResearchFormDto.ImgFile);
+                        var pdfValidator = new PdfValidator();
+                        var pdfValidationResult = await pdfValidator.ValidateAsync(request.ResearchFormDto.File);
 
-                        if (imgValidationResult.IsValid == false)
+                        if (pdfValidationResult.IsValid == false)
                         {
                             response.Success = false;
                             response.Message = "Update Failed";
-                            response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                            response.Errors = pdfValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                             response.Status = "400";
                         }
                         else
                         {
-                            var oldImage = (await _researchRepository.GetById(
-                                request.ResearchFormDto.Id)).ImgName;
+                            var oldPdf = (await _researchRepository.GetById(
+                                request.ResearchFormDto.Id)).FileName;
                             
 
                             string oldPath = Path.Combine(
-                                Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
+                                Directory.GetCurrentDirectory(), @"wwwroot\pdf",oldPdf);
                             File.Delete(oldPath);
 
-                            string contentType = request.ResearchFormDto.ImgFile.ContentType.ToString();
+                            string contentType = request.ResearchFormDto.File.ContentType.ToString();
                             string ext = contentType.Split('/')[1];
                             string fileName = Guid.NewGuid().ToString() + "." + ext;
-                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\pdf", fileName);
 
                             using (Stream stream = new FileStream(path, FileMode.Create))
                             {
-                                request.ResearchFormDto.ImgFile.CopyTo(stream);
+                                request.ResearchFormDto.File.CopyTo(stream);
                             }
                            
-                            ResearchDto.ImgName = fileName;
+                            ResearchDto.FileName = fileName;
                         }
                     }
                     catch (Exception ex)
@@ -93,8 +93,8 @@ namespace ECX.Website.Application.CQRS.Research_.Handler.Command
                 }
                 else
                 {
-                    ResearchDto.ImgName = (await _researchRepository.GetById(
-                                request.ResearchFormDto.Id)).ImgName;
+                    ResearchDto.FileName = (await _researchRepository.GetById(
+                                request.ResearchFormDto.Id)).FileName;
                 } 
 
                 var updateData = await _researchRepository.GetById(request.ResearchFormDto.Id);

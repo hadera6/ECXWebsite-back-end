@@ -15,13 +15,13 @@ namespace ECX.Website.Application.DTOs.Faq.Validators
             RuleFor(p => p.LangId)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Name)
+            RuleFor(p => p.Title)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Description)
+            RuleFor(p => p.Question)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
-            RuleFor(p => p.ImgFile)
+            RuleFor(p => p.Answer)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
         }

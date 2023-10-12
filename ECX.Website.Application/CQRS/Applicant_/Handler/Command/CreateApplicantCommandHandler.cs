@@ -24,7 +24,7 @@ namespace ECX.Website.Application.CQRS.Applicant_.Handler.Command
     {
         private IApplicantRepository _applicantRepository;
         private IMapper _mapper;
-
+        
         public CreateApplicantCommandHandler(IApplicantRepository applicantRepository, IMapper mapper)
         {
             _applicantRepository = applicantRepository;
@@ -47,36 +47,36 @@ namespace ECX.Website.Application.CQRS.Applicant_.Handler.Command
             {
                 try
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.ApplicantFormDto.ImgFile);
+                    var pdfValidator = new PdfValidator();
+                    var pdfValidationResult = await pdfValidator.ValidateAsync(request.ApplicantFormDto.File);
 
-                    if (imgValidationResult.IsValid == false)
+                    if (pdfValidationResult.IsValid == false)
                     {
                         response.Success = false;
                         response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                        response.Errors = pdfValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                         response.Status = "400";
                     }
                     else
                     {
-                        string contentType = request.ApplicantFormDto.ImgFile.ContentType.ToString();
+                        string contentType = request.ApplicantFormDto.File.ContentType.ToString();
                         string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                        string fileName = Guid.NewGuid().ToString() +"."+ext;
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\pdf", fileName);
 
                         using (Stream stream = new FileStream(path, FileMode.Create))
                         {
-                            request.ApplicantFormDto.ImgFile.CopyTo(stream);
+                            request.ApplicantFormDto.File.CopyTo(stream);
                         }
                         var ApplicantDto = _mapper.Map<ApplicantDto>(request.ApplicantFormDto);
-                        ApplicantDto.ImgName = fileName;
+                        ApplicantDto.FileName = fileName;
 
-                        string applicantId;
+                        string applicantId ;
                         bool flag = true;
 
                         while (true)
                         {
-                            applicantId = Guid.NewGuid().ToString();
+                            applicantId = (Guid.NewGuid()).ToString();
                             flag = await _applicantRepository.Exists(applicantId);
                             if (flag == false)
                             {
@@ -85,15 +85,15 @@ namespace ECX.Website.Application.CQRS.Applicant_.Handler.Command
                             }
                         }
 
-                        var data = _mapper.Map<Applicant>(ApplicantDto);
-
+                        var data =_mapper.Map<Applicant>(ApplicantDto);
+                        
                         var saveData = await _applicantRepository.Add(data);
 
                         response.Data = _mapper.Map<ApplicantDto>(saveData);
                         response.Success = true;
                         response.Message = "Created Successfully";
                         response.Status = "200";
-                    }
+                    }    
                 }
                 catch (Exception ex)
                 {

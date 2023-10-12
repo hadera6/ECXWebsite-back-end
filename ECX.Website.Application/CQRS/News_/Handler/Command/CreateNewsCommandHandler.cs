@@ -76,7 +76,7 @@ namespace ECX.Website.Application.CQRS.News_.Handler.Command
 
                         while (true)
                         {
-                            newsId = (Guid.NewGuid()).ToString();
+                            newsId = Guid.NewGuid().ToString();
                             flag = await _newsRepository.Exists(newsId);
                             if (flag == false)
                             {

@@ -24,7 +24,7 @@ namespace ECX.Website.Application.CQRS.Brochure_.Handler.Command
     {
         private IBrochureRepository _brochureRepository;
         private IMapper _mapper;
-
+        
         public CreateBrochureCommandHandler(IBrochureRepository brochureRepository, IMapper mapper)
         {
             _brochureRepository = brochureRepository;
@@ -47,36 +47,36 @@ namespace ECX.Website.Application.CQRS.Brochure_.Handler.Command
             {
                 try
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.BrochureFormDto.ImgFile);
+                    var pdfValidator = new PdfValidator();
+                    var pdfValidationResult = await pdfValidator.ValidateAsync(request.BrochureFormDto.File);
 
-                    if (imgValidationResult.IsValid == false)
+                    if (pdfValidationResult.IsValid == false)
                     {
                         response.Success = false;
                         response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
+                        response.Errors = pdfValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
                         response.Status = "400";
                     }
                     else
                     {
-                        string contentType = request.BrochureFormDto.ImgFile.ContentType.ToString();
+                        string contentType = request.BrochureFormDto.File.ContentType.ToString();
                         string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
+                        string fileName = Guid.NewGuid().ToString() +"."+ext;
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\pdf", fileName);
 
                         using (Stream stream = new FileStream(path, FileMode.Create))
                         {
-                            request.BrochureFormDto.ImgFile.CopyTo(stream);
+                            request.BrochureFormDto.File.CopyTo(stream);
                         }
                         var BrochureDto = _mapper.Map<BrochureDto>(request.BrochureFormDto);
-                        BrochureDto.ImgName = fileName;
+                        BrochureDto.FileName = fileName;
 
-                        string brochureId;
+                        string brochureId ;
                         bool flag = true;
 
                         while (true)
                         {
-                            brochureId = Guid.NewGuid().ToString();
+                            brochureId = (Guid.NewGuid()).ToString();
                             flag = await _brochureRepository.Exists(brochureId);
                             if (flag == false)
                             {
@@ -85,15 +85,15 @@ namespace ECX.Website.Application.CQRS.Brochure_.Handler.Command
                             }
                         }
 
-                        var data = _mapper.Map<Brochure>(BrochureDto);
-
+                        var data =_mapper.Map<Brochure>(BrochureDto);
+                        
                         var saveData = await _brochureRepository.Add(data);
 
                         response.Data = _mapper.Map<BrochureDto>(saveData);
                         response.Success = true;
                         response.Message = "Created Successfully";
                         response.Status = "200";
-                    }
+                    }    
                 }
                 catch (Exception ex)
                 {

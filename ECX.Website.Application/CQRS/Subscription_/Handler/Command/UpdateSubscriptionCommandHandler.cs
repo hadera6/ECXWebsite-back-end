@@ -46,57 +46,6 @@ namespace ECX.Website.Application.CQRS.Subscription_.Handler.Command
             }
             else 
             {
-                if (request.SubscriptionFormDto.ImgFile != null)
-                {
-                    try
-                    {
-                        var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.SubscriptionFormDto.ImgFile);
-
-                        if (imgValidationResult.IsValid == false)
-                        {
-                            response.Success = false;
-                            response.Message = "Update Failed";
-                            response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
-                            response.Status = "400";
-                        }
-                        else
-                        {
-                            var oldImage = (await _subscriptionRepository.GetById(
-                                request.SubscriptionFormDto.Id)).ImgName;
-                            
-
-                            string oldPath = Path.Combine(
-                                Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
-                            File.Delete(oldPath);
-
-                            string contentType = request.SubscriptionFormDto.ImgFile.ContentType.ToString();
-                            string ext = contentType.Split('/')[1];
-                            string fileName = Guid.NewGuid().ToString() + "." + ext;
-                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
-
-                            using (Stream stream = new FileStream(path, FileMode.Create))
-                            {
-                                request.SubscriptionFormDto.ImgFile.CopyTo(stream);
-                            }
-                           
-                            SubscriptionDto.ImgName = fileName;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        response.Success = false;
-                        response.Message = "Update Failed";
-                        response.Errors = new List<string> { ex.Message };
-                        response.Status = "400";
-                    }
-                }
-                else
-                {
-                    SubscriptionDto.ImgName = (await _subscriptionRepository.GetById(
-                                request.SubscriptionFormDto.Id)).ImgName;
-                } 
-
                 var updateData = await _subscriptionRepository.GetById(request.SubscriptionFormDto.Id);
                 
                 _mapper.Map(SubscriptionDto, updateData);
@@ -111,5 +60,5 @@ namespace ECX.Website.Application.CQRS.Subscription_.Handler.Command
             return response;
         }
     }
- }
+}
 

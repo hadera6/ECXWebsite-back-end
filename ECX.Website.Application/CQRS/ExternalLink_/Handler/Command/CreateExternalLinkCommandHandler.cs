@@ -35,7 +35,7 @@ namespace ECX.Website.Application.CQRS.ExternalLink_.Handler.Command
             var response = new BaseCommonResponse();
             var validator = new ExternalLinkCreateDtoValidator();
             var validationResult = await validator.ValidateAsync(request.ExternalLinkFormDto);
-
+            var ExternalLinkDto = _mapper.Map<ExternalLinkDto>(request.ExternalLinkFormDto);
             if (validationResult.IsValid == false)
             {
                 response.Success = false;
@@ -45,63 +45,29 @@ namespace ECX.Website.Application.CQRS.ExternalLink_.Handler.Command
             }
             else
             {
-                try
+                string externalLinkId;
+                bool flag = true;
+
+                while (true)
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.ExternalLinkFormDto.ImgFile);
-
-                    if (imgValidationResult.IsValid == false)
+                    externalLinkId = Guid.NewGuid().ToString();
+                    flag = await _externalLinkRepository.Exists(externalLinkId);
+                    if (flag == false)
                     {
-                        response.Success = false;
-                        response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
-                        response.Status = "400";
-                    }
-                    else
-                    {
-                        string contentType = request.ExternalLinkFormDto.ImgFile.ContentType.ToString();
-                        string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
-
-                        using (Stream stream = new FileStream(path, FileMode.Create))
-                        {
-                            request.ExternalLinkFormDto.ImgFile.CopyTo(stream);
-                        }
-                        var ExternalLinkDto = _mapper.Map<ExternalLinkDto>(request.ExternalLinkFormDto);
-                        ExternalLinkDto.ImgName = fileName;
-
-                        string externalLinkId;
-                        bool flag = true;
-
-                        while (true)
-                        {
-                            externalLinkId = Guid.NewGuid().ToString();
-                            flag = await _externalLinkRepository.Exists(externalLinkId);
-                            if (flag == false)
-                            {
-                                ExternalLinkDto.Id = externalLinkId;
-                                break;
-                            }
-                        }
-
-                        var data = _mapper.Map<ExternalLink>(ExternalLinkDto);
-
-                        var saveData = await _externalLinkRepository.Add(data);
-
-                        response.Data = _mapper.Map<ExternalLinkDto>(saveData);
-                        response.Success = true;
-                        response.Message = "Created Successfully";
-                        response.Status = "200";
+                        ExternalLinkDto.Id = externalLinkId;
+                        break;
                     }
                 }
-                catch (Exception ex)
-                {
-                    response.Success = false;
-                    response.Message = "Creation Failed";
-                    response.Errors = new List<string> { ex.Message };
-                    response.Status = "400";
-                }
+
+                var data = _mapper.Map<ExternalLink>(ExternalLinkDto);
+
+                var saveData = await _externalLinkRepository.Add(data);
+
+                response.Data = _mapper.Map<ExternalLinkDto>(saveData);
+                response.Success = true;
+                response.Message = "Created Successfully";
+                response.Status = "200";
+                    
             }
             return response;
         }

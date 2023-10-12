@@ -11,7 +11,10 @@ namespace ECX.Website.Application.DTOs.Language.Validators
     {
         public LanguageUpdateDtoValidator()
         {
-            RuleFor(p => p.Name)
+            RuleFor(p=>p.Name)
+                .NotEmpty().WithMessage("{PropertyName} is requiered.")
+                .NotNull();
+            RuleFor(p=>p.ShortName)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
         }

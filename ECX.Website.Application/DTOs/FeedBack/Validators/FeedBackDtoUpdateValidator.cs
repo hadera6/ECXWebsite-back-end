@@ -15,10 +15,10 @@ namespace ECX.Website.Application.DTOs.FeedBack.Validators
             RuleFor(p => p.LangId)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Name)
+            RuleFor(p => p.Subject)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Description)
+            RuleFor(p => p.Comment)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
         }

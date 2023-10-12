@@ -11,6 +11,9 @@ namespace ECX.Website.Domain
         public string LangId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+        public string Capacity { get; set; }
         public string ImgName { get; set; }
 
     }

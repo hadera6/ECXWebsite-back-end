@@ -10,8 +10,7 @@ namespace ECX.Website.Application.DTOs.Message
     public class MessageDto : BaseDtos
     {
         public string LangId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImgName { get; set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
     }
 }

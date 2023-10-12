@@ -10,6 +10,6 @@ namespace ECX.Website.Application.DTOs.Language
     public class LanguageDto : BaseDtos
     {
         public string Name { get; set; }
-       
+        public string ShortName { get; set; }
     }
 }

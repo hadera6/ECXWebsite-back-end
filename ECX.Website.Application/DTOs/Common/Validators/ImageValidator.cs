@@ -14,8 +14,11 @@ namespace ECX.Website.Application.DTOs.Common.Validators
         {
             RuleFor(x => x.ContentType)
                 .NotNull()
-                .Must(x => x.Equals("image/jpeg") || x.Equals("image/jpg") || x.Equals("image/png"))
-                .WithMessage("File must be image");
+                .Must(x =>  x.Equals("image/jpeg") || 
+                            x.Equals("image/jpg") || 
+                            x.Equals("image/png")
+                    )
+                .WithMessage("File must be Image");
         }
     }
 }

@@ -12,16 +12,10 @@ namespace ECX.Website.Application.DTOs.Subscription.Validators
         public SubscriptionCreateDtoValidator()
         {
 
-            RuleFor(p => p.LangId)
+            RuleFor(p => p.Email)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Name)
-                .NotEmpty().WithMessage("{PropertyName} is requiered.")
-                .NotNull();
-            RuleFor(p => p.Description)
-               .NotEmpty().WithMessage("{PropertyName} is requiered.")
-               .NotNull();
-            RuleFor(p => p.ImgFile)
+            RuleFor(p => p.SubscriberName)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
         }

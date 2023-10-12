@@ -41,7 +41,7 @@ namespace ECX.Website.Application.CQRS.Announcement_.Handler.Command
                 await _announcementRepository.Delete(data);
 
                 string path = Path.Combine(
-                    Directory.GetCurrentDirectory(), @"wwwroot\image", data.ImgName);
+                    Directory.GetCurrentDirectory(), @"wwwroot\pdf", data.FileName);
 
                 File.Delete(path);
 

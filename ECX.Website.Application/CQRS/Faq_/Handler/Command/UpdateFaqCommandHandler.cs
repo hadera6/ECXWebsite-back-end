@@ -46,57 +46,6 @@ namespace ECX.Website.Application.CQRS.Faq_.Handler.Command
             }
             else 
             {
-                if (request.FaqFormDto.ImgFile != null)
-                {
-                    try
-                    {
-                        var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.FaqFormDto.ImgFile);
-
-                        if (imgValidationResult.IsValid == false)
-                        {
-                            response.Success = false;
-                            response.Message = "Update Failed";
-                            response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
-                            response.Status = "400";
-                        }
-                        else
-                        {
-                            var oldImage = (await _faqRepository.GetById(
-                                request.FaqFormDto.Id)).ImgName;
-                            
-
-                            string oldPath = Path.Combine(
-                                Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
-                            File.Delete(oldPath);
-
-                            string contentType = request.FaqFormDto.ImgFile.ContentType.ToString();
-                            string ext = contentType.Split('/')[1];
-                            string fileName = Guid.NewGuid().ToString() + "." + ext;
-                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
-
-                            using (Stream stream = new FileStream(path, FileMode.Create))
-                            {
-                                request.FaqFormDto.ImgFile.CopyTo(stream);
-                            }
-                           
-                            FaqDto.ImgName = fileName;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        response.Success = false;
-                        response.Message = "Update Failed";
-                        response.Errors = new List<string> { ex.Message };
-                        response.Status = "400";
-                    }
-                }
-                else
-                {
-                    FaqDto.ImgName = (await _faqRepository.GetById(
-                                request.FaqFormDto.Id)).ImgName;
-                } 
-
                 var updateData = await _faqRepository.GetById(request.FaqFormDto.Id);
                 
                 _mapper.Map(FaqDto, updateData);
@@ -111,5 +60,4 @@ namespace ECX.Website.Application.CQRS.Faq_.Handler.Command
             return response;
         }
     }
- }
-
+}

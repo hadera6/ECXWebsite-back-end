@@ -46,57 +46,6 @@ namespace ECX.Website.Application.CQRS.FeedBack_.Handler.Command
             }
             else 
             {
-                if (request.FeedBackFormDto.ImgFile != null)
-                {
-                    try
-                    {
-                        var imageValidator = new ImageValidator();
-                        var imgValidationResult = await imageValidator.ValidateAsync(request.FeedBackFormDto.ImgFile);
-
-                        if (imgValidationResult.IsValid == false)
-                        {
-                            response.Success = false;
-                            response.Message = "Update Failed";
-                            response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
-                            response.Status = "400";
-                        }
-                        else
-                        {
-                            var oldImage = (await _feedBackRepository.GetById(
-                                request.FeedBackFormDto.Id)).ImgName;
-                            
-
-                            string oldPath = Path.Combine(
-                                Directory.GetCurrentDirectory(), @"wwwroot\image",oldImage);
-                            File.Delete(oldPath);
-
-                            string contentType = request.FeedBackFormDto.ImgFile.ContentType.ToString();
-                            string ext = contentType.Split('/')[1];
-                            string fileName = Guid.NewGuid().ToString() + "." + ext;
-                            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
-
-                            using (Stream stream = new FileStream(path, FileMode.Create))
-                            {
-                                request.FeedBackFormDto.ImgFile.CopyTo(stream);
-                            }
-                           
-                            FeedBackDto.ImgName = fileName;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        response.Success = false;
-                        response.Message = "Update Failed";
-                        response.Errors = new List<string> { ex.Message };
-                        response.Status = "400";
-                    }
-                }
-                else
-                {
-                    FeedBackDto.ImgName = (await _feedBackRepository.GetById(
-                                request.FeedBackFormDto.Id)).ImgName;
-                } 
-
                 var updateData = await _feedBackRepository.GetById(request.FeedBackFormDto.Id);
                 
                 _mapper.Map(FeedBackDto, updateData);
@@ -111,5 +60,5 @@ namespace ECX.Website.Application.CQRS.FeedBack_.Handler.Command
             return response;
         }
     }
- }
+}
 

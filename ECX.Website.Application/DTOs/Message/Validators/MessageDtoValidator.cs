@@ -11,10 +11,10 @@ namespace ECX.Website.Application.DTOs.Message.Validators
     {
         public MessageDtoValidator()
         {
-            RuleFor(p=>p.Name)
+            RuleFor(p=>p.Subject)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
-            RuleFor(p => p.Description)
+            RuleFor(p => p.Body)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
         }

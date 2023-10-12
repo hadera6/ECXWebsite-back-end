@@ -41,7 +41,7 @@ namespace ECX.Website.Application.CQRS.Video_.Handler.Command
                 await _videoRepository.Delete(data);
 
                 string path = Path.Combine(
-                    Directory.GetCurrentDirectory(), @"wwwroot\image", data.ImgName);
+                    Directory.GetCurrentDirectory(), @"wwwroot\video", data.VideoName);
 
                 File.Delete(path);
 

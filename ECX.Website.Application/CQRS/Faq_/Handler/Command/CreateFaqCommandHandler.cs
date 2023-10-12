@@ -35,7 +35,7 @@ namespace ECX.Website.Application.CQRS.Faq_.Handler.Command
             var response = new BaseCommonResponse();
             var validator = new FaqCreateDtoValidator();
             var validationResult = await validator.ValidateAsync(request.FaqFormDto);
-
+            var FaqDto = _mapper.Map<FaqDto>(request.FaqFormDto);
             if (validationResult.IsValid == false)
             {
                 response.Success = false;
@@ -45,63 +45,29 @@ namespace ECX.Website.Application.CQRS.Faq_.Handler.Command
             }
             else
             {
-                try
+                string faqId;
+                bool flag = true;
+
+                while (true)
                 {
-                    var imageValidator = new ImageValidator();
-                    var imgValidationResult = await imageValidator.ValidateAsync(request.FaqFormDto.ImgFile);
-
-                    if (imgValidationResult.IsValid == false)
+                    faqId = Guid.NewGuid().ToString();
+                    flag = await _faqRepository.Exists(faqId);
+                    if (flag == false)
                     {
-                        response.Success = false;
-                        response.Message = "Creation Faild";
-                        response.Errors = imgValidationResult.Errors.Select(x => x.ErrorMessage).ToList();
-                        response.Status = "400";
-                    }
-                    else
-                    {
-                        string contentType = request.FaqFormDto.ImgFile.ContentType.ToString();
-                        string ext = contentType.Split('/')[1];
-                        string fileName = Guid.NewGuid().ToString() + "." + ext;
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\image", fileName);
-
-                        using (Stream stream = new FileStream(path, FileMode.Create))
-                        {
-                            request.FaqFormDto.ImgFile.CopyTo(stream);
-                        }
-                        var FaqDto = _mapper.Map<FaqDto>(request.FaqFormDto);
-                        FaqDto.ImgName = fileName;
-
-                        string faqId;
-                        bool flag = true;
-
-                        while (true)
-                        {
-                            faqId = Guid.NewGuid().ToString();
-                            flag = await _faqRepository.Exists(faqId);
-                            if (flag == false)
-                            {
-                                FaqDto.Id = faqId;
-                                break;
-                            }
-                        }
-
-                        var data = _mapper.Map<Faq>(FaqDto);
-
-                        var saveData = await _faqRepository.Add(data);
-
-                        response.Data = _mapper.Map<FaqDto>(saveData);
-                        response.Success = true;
-                        response.Message = "Created Successfully";
-                        response.Status = "200";
+                        FaqDto.Id = faqId;
+                        break;
                     }
                 }
-                catch (Exception ex)
-                {
-                    response.Success = false;
-                    response.Message = "Creation Failed";
-                    response.Errors = new List<string> { ex.Message };
-                    response.Status = "400";
-                }
+
+                var data = _mapper.Map<Faq>(FaqDto);
+
+                var saveData = await _faqRepository.Add(data);
+
+                response.Data = _mapper.Map<FaqDto>(saveData);
+                response.Success = true;
+                response.Message = "Created Successfully";
+                response.Status = "200";
+                    
             }
             return response;
         }

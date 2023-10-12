@@ -8,10 +8,7 @@ namespace ECX.Website.Domain
     public class Subscription : BaseDomainEntity
     {
 
-        public string LangId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImgName { get; set; }
-
+        public string Email { get; set; }
+        public string SubscriberName { get; set; }
     }
 }

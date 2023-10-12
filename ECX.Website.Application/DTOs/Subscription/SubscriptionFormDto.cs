@@ -10,9 +10,7 @@ namespace ECX.Website.Application.DTOs.Subscription
 {
     public class SubscriptionFormDto : BaseDtos
     {
-        public string LangId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public IFormFile ImgFile{get;set;}
+        public string Email { get; set; }
+        public string SubscriberName { get; set; }
     }
 }

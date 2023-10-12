@@ -11,12 +11,18 @@ namespace ECX.Website.Application.DTOs.SocialMedia.Validators
     {
         public SocialMediaDtoValidator()
         {
-            RuleFor(p=>p.Name)
+            RuleFor(p => p.LangId)
+                .NotEmpty().WithMessage("{PropertyName} is requiered.")
+                .NotNull();
+            RuleFor(p => p.Name)
                 .NotEmpty().WithMessage("{PropertyName} is requiered.")
                 .NotNull();
             RuleFor(p => p.Description)
                .NotEmpty().WithMessage("{PropertyName} is requiered.")
                .NotNull();
+            RuleFor(p => p.Url)
+                .NotEmpty().WithMessage("{PropertyName} is requiered.")
+                .NotNull();
         }
     }
 }

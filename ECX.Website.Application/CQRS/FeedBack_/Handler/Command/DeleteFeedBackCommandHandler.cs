@@ -39,12 +39,7 @@ namespace ECX.Website.Application.CQRS.FeedBack_.Handler.Command
             else
             {
                 await _feedBackRepository.Delete(data);
-
-                string path = Path.Combine(
-                    Directory.GetCurrentDirectory(), @"wwwroot\image", data.ImgName);
-
-                File.Delete(path);
-
+                
                 response.Success = true;
                 response.Message = "Successfully Deleted";
                 response.Status = "200";
