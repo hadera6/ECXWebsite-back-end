@@ -16,4 +16,5 @@ namespace ECX.Website.Domain
         public string ImgName { get; set; }
 
     }
+
 }
